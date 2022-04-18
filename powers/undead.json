@@ -1,0 +1,179 @@
+{
+	"type": "origins:multiple",
+	"name": "§a§l§nUndead Body",
+	"description": "Your undead corpse can't heal naturally and is weak to Smite, but is immune to toxins, decay, suffocation, and freezing; drowning also takes longer, and you will gain debuffs instead of taking damage.\nYour spirit will sustain you, however, removing the need to eat or sleep.",
+	"badges": [
+		{
+			"sprite": "minecraft:textures/mob_effect/water_breathing.png",
+			"text": "Debuffs from drowning are: §fBlindness§r, §fMining Fatigue II§r, and §fWeakness II§r, as well as the inability to swim. All effects will be cleared upon regaining air."
+		},
+		{
+			"sprite": "minecraft:textures/particle/heart.png",
+			"text": "Without natural healing, your options of health recovery are limited to the lifesteal effect of §aSoul Edge§r, as well as your §aTransmutation§r ability."
+		}
+	],
+	"entity_group": {
+		"type": "origins:entity_group",
+		"group": "undead",
+		"condition": {
+			"type": "origins:resource",
+			"resource": "fused:repossession_freeze",
+			"comparison": "==",
+			"compare_to": 0
+		}
+	},
+	"vaccination": {
+		"type": "origins:effect_immunity",
+		"effects": [
+			"minecraft:poison",
+			"minecraft:hunger"
+		]
+	},
+	"vaccination_1": {
+		"type": "origins:effect_immunity",
+		"effect": "minecraft:regeneration",
+		"condition": {
+			"type": "origins:resource",
+			"resource": "fused:repossession_freeze",
+			"comparison": "==",
+			"compare_to": 0
+		}
+	},
+	"vaccination_2": {
+		"type": "origins:invulnerability",
+		"damage_condition": {
+			"type": "origins:name",
+			"name": "wither"
+		}
+	},
+	"vaccination_2_1": {
+		"type": "origins:effect_immunity",
+		"effect": "minecraft:wither",
+		"condition": {
+			"type": "origins:resource",
+			"resource": "fused:animated_damage_over_time",
+			"comparison": "==",
+			"compare_to": 0
+		}
+	},
+	"no_freezing": {
+		"type": "origins:invulnerability",
+		"damage_condition": {
+			"type": "origins:name",
+			"name": "freeze"
+		}
+	},
+	"no_regen": {
+		"type": "origins:disable_regen"
+	},
+	"no_eating": {
+		"type": "origins:prevent_item_use",
+		"item_condition": {
+			"type": "origins:food"
+		}
+	},
+	"no_exhaustion": {
+		"type": "origins:modify_exhaustion",
+		"modifier": {
+			"operation": "multiply_base",
+			"value": -1
+		}
+	},
+	"no_drowning": {
+		"type": "origins:invulnerability",
+		"damage_condition": {
+			"type": "origins:name",
+			"name": "drown"
+		}
+	},
+	"no_suffocation": {
+		"type": "origins:invulnerability",
+		"damage_condition": {
+			"type": "origins:name",
+			"name": "inWall"
+		}
+	},
+	"no_sleeping": {
+		"type": "origins:prevent_sleep",
+		"message": "A walking corpse needs no rest.",
+		"set_spawn_point": true
+	},
+	"drowning": {
+		"type": "origins:action_over_time",
+		"interval": 60,
+		"entity_action": {
+			"type": "origins:gain_air",
+			"value": -30
+		},
+		"condition": {
+			"type": "origins:in_block",
+			"block_condition": {
+				"type": "origins:offset",
+				"y": 1,
+				"condition": {
+					"type": "origins:block",
+					"block": "minecraft:water"
+				}
+			}
+		}
+	},
+	"drowning_effects": {
+		"type": "origins:stacking_status_effect",
+		"min_stacks": 1,
+		"max_stacks": 1,
+		"duration_per_stack": 40,
+		"effects": [
+			{
+				"effect": "minecraft:mining_fatigue",
+				"duration": 100,
+				"show_particles": false,
+				"show_icon": false
+			},
+			{
+				"effect": "minecraft:weakness",
+				"duration": 100,
+				"amplifier": 1,
+				"show_particles": false,
+				"show_icon": false
+			},
+			{
+				"effect": "minecraft:slowness",
+				"duration": 100,
+				"amplifier": 1,
+				"show_particles": false,
+				"show_icon": false
+			},
+			{
+				"effect": "minecraft:blindness",
+				"duration": 100,
+				"show_particles": false,
+				"show_icon": false
+			}
+		],
+		"condition": {
+			"type": "origins:air",
+			"comparison": "<=",
+			"compare_to": 1
+		}
+	},
+	"drowning_overlay": {
+		"type": "origins:overlay",
+		"draw_mode": "nausea",
+		"red": 0.5,
+		"green": 0.5,
+		"blue": 1.0,
+		"draw_phase": "above_hud",
+		"strength": 0.6,
+		"texture": "minecraft:textures/misc/nausea.png",
+		"visible_in_third_person": true,
+		"condition": {
+			"type": "origins:air",
+			"comparison": "<=",
+			"compare_to": 1
+		}
+	},
+	"hunger_bar": {
+		"type": "origins:status_bar_texture",
+		"texture": "fused:textures/gui/replaced_status_bar.png"
+	}
+}

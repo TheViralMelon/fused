@@ -1,0 +1,186 @@
+{
+	"type": "origins:multiple",
+	"name": "§a§l§nAnimated",
+	"description": "Your spirit part is resiliant, and prevents you from taking more than 50% of your maximum health in a single hit. If the damage of a hit exceeds this, the remaining damage will be dealt over time.\nThis damage over time cannot kill you, and will be instantly cleared if you kill a mob.",
+	"badges": [
+		{
+			"sprite": "minecraft:textures/mob_effect/poison.png",
+			"text": "The damage over time from a single hit will never exceed your damage cap. This damage over time is dealt as 1 damage every 0.4 seconds, and will not give invincibility frames, knockback, or other effects applied by taking damage other than health loss."
+		},
+		{
+			"sprite": "minecraft:textures/particle/glint.png",
+			"text": "Each time this damage over time is dealt, you will emit smoke particles and a noise. Your health will also be green when taking damage from this effect as indication."
+		}
+	],
+	"damage_over_time": {
+		"type": "origins:resource",
+		"min": 0,
+		"max": 1000,
+		"hud_render": {
+			"should_render": false
+		}
+	},
+	"when_hit": {
+		"type": "origins:self_action_when_hit",
+		"cooldown": 5,
+		"entity_action": {
+			"type": "origins:and",
+			"actions": [
+				{
+					"type": "origins:execute_command",
+					"command": "execute store result score @s fusedMeCounter run data get entity @s Health"
+				},
+				{
+					"type": "origins:execute_command",
+					"command": "scoreboard players operation @s fusedMeTransfer = @s fusedHealth"
+				},
+				{
+					"type": "origins:execute_command",
+					"command": "scoreboard players operation @s fusedMeTransfer -= @s fusedDamageCap"
+				},
+				{
+					"type": "origins:if_else",
+					"condition": {
+						"type": "origins:command",
+						"command": "execute if score @s fusedMeTransfer > @s fusedMeCounter",
+						"comparison": "==",
+						"compare_to": 1
+					},
+					"if_action": {
+						"type": "origins:and",
+						"actions": [
+							{
+								"type": "origins:execute_command",
+								"command": "title @s actionbar {\"text\": \"Damage cap exceeded! Excessive damage converted to damage over time!\",\"color\":\"gold\",\"bold\":true}"
+							},
+							{
+								"type": "origins:grant_power",
+								"power": "fused:damage_cap_1",
+								"source": "fused:animated"
+							}
+						]
+					}
+				},
+				{
+					"type": "origins:execute_command",
+					"command": "scoreboard players set @s fusedMeCounter 0"
+				},
+				{
+					"type": "origins:execute_command",
+					"command": "scoreboard players set @s fusedMeTransfer 0"
+				}
+			]
+		}
+	},
+	"prevent_death": {
+		"type": "origins:prevent_death",
+		"loading_priority": 1,
+		"condition": {
+			"type": "origins:command",
+			"command": "execute if score @s fusedHealth > @s fusedDamageCap",
+			"comparison": "==",
+			"compare_to": 1
+		}
+	},
+	"damage": {
+		"type": "origins:action_over_time",
+		"interval": 8,
+		"entity_action": {
+			"type": "origins:and",
+			"actions": [
+				{
+					"type": "origins:if_else",
+					"condition": {
+						"type": "origins:resource",
+						"resource": "fused:animated_damage_over_time",
+						"comparison": "==",
+						"compare_to": 1
+					},
+					"if_action": {
+						"type": "origins:execute_command",
+						"command": "effect clear @s wither"
+					}
+				},
+				{
+					"type": "origins:if_else",
+					"condition": {
+						"type": "origins:health",
+						"comparison": ">",
+						"compare_to": 1
+					},
+					"if_action": {
+						"type": "origins:and",
+						"actions": [
+							{
+								"type": "origins:heal",
+								"amount": -1
+							},
+							{
+								"type": "origins:change_resource",
+								"resource": "fused:animated_damage_over_time",
+								"change": -1
+							},
+							{
+								"type": "origins:execute_command",
+								"command": "function fused:wither"
+							}
+						]
+					}
+				}
+			]
+		},
+		"condition": {
+			"type": "origins:resource",
+			"resource": "fused:animated_damage_over_time",
+			"comparison": ">=",
+			"compare_to": 1
+		}
+	},
+	"wither": {
+		"type": "origins:stacking_status_effect",
+		"min_stacks": 0,
+		"max_stacks": 1,
+		"duration_per_stack": 6,
+		"tick_rate": 5,
+		"effect": {
+			"effect": "minecraft:wither",
+			"show_particles": false,
+			"show_icon": false
+		},
+		"condition": {
+			"type": "origins:resource",
+			"resource": "fused:animated_damage_over_time",
+			"comparison": ">=",
+			"compare_to": 1
+		}
+	},
+	"kill_reset": {
+		"type": "origins:self_action_on_kill",
+		"cooldown": 5,
+		"entity_action": {
+			"type": "origins:and",
+			"actions": [
+				{
+					"type": "origins:change_resource",
+					"resource": "fused:animated_damage_over_time",
+					"change": 0,
+					"operation": "set"
+				},
+				{
+					"type": "origins:delay",
+					"ticks": 2,
+					"action": {
+						"type": "origins:execute_command",
+						"command": "title @s actionbar {\"text\": \"Damage over time cleared! (Mob kill)\",\"color\":\"blue\",\"bold\":true}"
+					}
+				}
+			]
+		},
+		"condition": {
+			"type": "origins:resource",
+			"resource": "fused:animated_damage_over_time",
+			"comparison": ">=",
+			"compare_to": 1
+		}
+	}
+}

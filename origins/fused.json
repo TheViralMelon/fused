@@ -1,0 +1,25 @@
+{
+	"powers": [
+		"fused:color",
+		"fused:callback",
+		"fused:undead",
+		"fused:magic_energy",
+		"fused:ethereal_form",
+		"fused:soul_edge",
+		"fused:vulnerable_soul",
+		"fused:soulbinding",
+		"fused:animated",
+		"fused:transmutation",
+		"fused:repossession",
+		"fused:heal_cooldown",
+		"fused:ef_cooldown",
+		"fused:ef_duration",
+		"fused:update_magic_energy",
+		"fused:me_upgrades"
+	],
+	"icon": "minecraft:experience_bottle",
+	"order": 4,
+	"impact": 3,
+	"name": "Fused",
+	"description": "Fused are undead husks possessed and animated by spirits that feed on experience. They have strengths of both flesh and spirit, but also their weaknesses.\n§n§2For details on each power, please read their badges. This origin is fairly complicated, so remember you can check your powers with O (default)."
+}

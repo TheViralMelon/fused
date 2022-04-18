@@ -1,0 +1,56 @@
+{
+	"type": "origins:multiple",
+	"hidden": true,
+	"dura": {
+		"type": "origins:resource",
+		"min": 0,
+		"max": 52,
+		"min_action": {
+			"type": "origins:and",
+			"actions": [
+				{
+					"type": "origins:change_resource",
+					"resource": "fused:ef_cooldown_cd",
+					"change": 80
+				},
+				{
+					"type": "origins:change_resource",
+					"resource": "fused:ef_duration_cap",
+					"change": -10
+				},
+				{
+					"type": "origins:change_resource",
+					"resource": "fused:ef_cooldown_cap",
+					"change": -13
+				},
+				{
+					"type": "origins:execute_command",
+					"command": "function fused:ef_dac"
+				},
+				{
+					"type": "origins:change_resource",
+					"resource": "fused:ef_cooldown_fall",
+					"change": 1
+				}
+			]
+		},
+		"hud_render": {
+			"sprite_location": "fused:textures/gui/resource_bar.png",
+			"bar_index": 10,
+			"condition": {
+				"type": "origins:resource",
+				"resource": "fused:ef_duration_dura",
+				"comparison": ">=",
+				"compare_to": 1
+			}
+		}
+	},
+	"cap": {
+		"type": "origins:resource",
+		"min": 0,
+		"max": 10,
+		"hud_render": {
+			"should_render": false
+		}
+	}
+}

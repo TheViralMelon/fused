@@ -1,0 +1,2 @@
+title @s title [{"text":"Respawning in"},{"text":" 4","color":"dark_green","bold":true},{"text":"..."}]
+title @s subtitle [{"text":"Press "},{"keybind":"key.origins.primary_active","color":"green"},{"text":" to respawn now."}]

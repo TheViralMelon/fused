@@ -1,0 +1,738 @@
+{
+	"type": "origins:multiple",
+	"name": "§a§l§nEthereal Form",
+	"description": "Press §ePrimary§r to be released from your body for 3 seconds, making you more agile than any mortal. However, without your body, you have 20% less max health and your range and damage are reduced by 50%.\nWhile this effect is active, hold §ePrimary§r to increase its duration up to 10 seconds, at a cost of 12 experience points per second. Hold §ePrimary§r while it's on cooldown to reduce the cooldown up to 13 seconds, at a cost of 4 experience points per second.\nHold §eJump§r while in a block to rise rapidly, or §eSneak§r to fall rapidly; hold §eJump§r midair to gain slow falling.\n§a[This power is affected by Magic Energy; for each missing point of Magic Energy, the number of times you can increase duration or reduce cooldown is reduced by 1, and their costs are increased by 1 experience point]",
+	"badges": [
+		{
+			"sprite": "minecraft:textures/particle/heart.png",
+			"text": "§aSoul Edge§r's lifesteal effect will give 50% more healing while Ethereal Form is active."
+		},
+		{
+			"sprite": "minecraft:textures/item/book.png",
+			"text": "Full effects: invisibility, immunity to fall damage, fire, and arrows, 50% increased movement speed (150% when sprinting), doubled jump height, full movement speed and visibility in lava, and the ability to pass through blocks. While this effect is active, you are unable to fly with §eElytra§r or block with a §eShield§r, and will not create vibrations."
+		},
+		{
+			"sprite": "minecraft:textures/particle/glint.png",
+			"text": "While this effect is active, you will emit particles. Additionally, after exiting §aEthereal Form§r, you will be immune to fall damage until you touch the ground."
+		}
+	],
+	"activate": {
+		"type": "origins:active_self",
+		"cooldown": 0,
+		"hud_render": {
+			"should_render": false
+		},
+		"condition": {
+			"type": "origins:and",
+			"conditions": [
+				{
+					"type": "origins:resource",
+					"resource": "fused:ef_duration_dura",
+					"comparison": "==",
+					"compare_to": 0
+				},
+				{
+					"type": "origins:resource",
+					"resource": "fused:ef_cooldown_cd",
+					"comparison": "==",
+					"compare_to": 0
+				},
+				{
+					"type": "origins:resource",
+					"resource": "fused:repossession_freeze",
+					"comparison": "==",
+					"compare_to": 0
+				}
+			]
+		},
+		"entity_action": {
+			"type": "origins:if_else_list",
+			"actions": [
+				{
+					"condition": {
+						"type": "origins:resource",
+						"resource": "fused:vulnerable_soul_ef_cancel",
+						"comparison": ">=",
+						"compare_to": 1
+					},
+					"action": {
+						"type": "origins:and",
+						"actions": [
+							{
+								"type": "origins:execute_command",
+								"command": "title @s actionbar {\"text\":\"E. Form blocked from touching iron!\",\"color\":\"red\",\"bold\":true}"
+							},
+							{
+								"type": "origins:execute_command",
+								"command": "playsound minecraft:entity.blaze.hurt master @s ~ ~ ~ 1 1.5"
+							}
+						]
+					}
+				},
+				{
+					"condition": {
+						"type": "origins:constant",
+						"value": true
+					},
+					"action": {
+						"type": "origins:and",
+						"actions": [
+							{
+								"type": "origins:change_resource",
+								"resource": "fused:ef_duration_dura",
+								"change": 12
+							},
+							{
+								"type": "origins:execute_command",
+								"command": "function fused:activate_ef"
+							},
+							{
+								"type": "origins:execute_command",
+								"command": "function fused:ef_effects"
+							},
+							{
+								"type": "origins:execute_command",
+								"command": "title @s actionbar {\"text\":\"Lifesteal is increased!\",\"color\":\"dark_green\",\"bold\":true}"
+							}
+						]
+					}
+				}
+			]
+		}
+	},
+	"xp_time_changes": {
+		"type": "origins:active_self",
+		"key": {
+			"continuous": true,
+			"key": "key.origins.primary_active"
+		},
+		"cooldown": 7,
+		"hud_render": {
+			"should_render": false
+		},
+		"entity_action": {
+			"type": "origins:if_else_list",
+			"actions": [
+				{
+					"condition": {
+						"type": "origins:and",
+						"conditions": [
+							{
+								"type": "origins:resource",
+								"resource": "fused:ef_duration_dura",
+								"comparison": ">=",
+								"compare_to": 1
+							},
+							{
+								"type": "origins:xp_levels",
+								"comparison": ">=",
+								"compare_to": 3
+							},
+							{
+								"type": "origins:resource",
+								"resource": "fused:ef_duration_cap",
+								"comparison": "<=",
+								"compare_to": 9
+							}
+						]
+					},
+					"action": {
+						"type": "origins:and",
+						"actions": [
+							{
+								"type": "origins:change_resource",
+								"resource": "fused:ef_duration_dura",
+								"change": 4
+							},
+							{
+								"type": "origins:change_resource",
+								"resource": "fused:ef_duration_cap",
+								"change": 1
+							},
+							{
+								"type": "origins:execute_command",
+								"command": "function fused:ef_active_calculate"
+							},
+							{
+								"type": "origins:execute_command",
+								"command": "function fused:ef_active_display"
+							}
+						]
+					}
+				},
+				{
+					"condition": {
+						"type": "origins:and",
+						"conditions": [
+							{
+								"type": "origins:resource",
+								"resource": "fused:ef_cooldown_cd",
+								"comparison": ">=",
+								"compare_to": 1
+							},
+							{
+								"type": "origins:xp_levels",
+								"comparison": ">=",
+								"compare_to": 2
+							},
+							{
+								"type": "origins:resource",
+								"resource": "fused:ef_cooldown_cap",
+								"comparison": "<=",
+								"compare_to": 12
+							}
+						]
+					},
+						"action": {
+						"type": "origins:and",
+						"actions": [
+							{
+								"type": "origins:change_resource",
+								"resource": "fused:ef_cooldown_cd",
+								"change": -4
+							},
+							{
+								"type": "origins:change_resource",
+								"resource": "fused:ef_cooldown_cap",
+								"change": 1
+							},
+							{
+								"type": "origins:execute_command",
+								"command": "function fused:ef_cooldown_calculate"
+							},
+							{
+								"type": "origins:execute_command",
+								"command": "function fused:ef_cooldown_display"
+							}
+						]
+					}
+				}
+			]
+		}
+	},
+	"duration": {
+		"type": "origins:action_over_time",
+		"interval": 5,
+		"entity_action": {
+			"type": "origins:and",
+			"actions": [
+				{
+					"type": "origins:if_else",
+					"condition": {
+						"type": "origins:resource",
+						"resource": "fused:ef_duration_dura",
+						"comparison": ">=",
+						"compare_to": 1
+					},
+					"if_action": {
+						"type": "origins:change_resource",
+						"resource": "fused:ef_duration_dura",
+						"change": -1
+					}
+				},
+				{
+					"type": "origins:if_else",
+					"condition": {
+						"type": "origins:resource",
+						"resource": "fused:ef_cooldown_cd",
+						"comparison": ">=",
+						"compare_to": 1
+					},
+					"if_action": {
+						"type": "origins:change_resource",
+						"resource": "fused:ef_cooldown_cd",
+						"change": -1
+					}
+				},
+				{
+					"type": "origins:if_else",
+					"condition": {
+						"type": "origins:resource",
+						"resource": "fused:heal_cooldown",
+						"comparison": ">=",
+						"compare_to": 1
+					},
+					"if_action": {
+						"type": "origins:change_resource",
+						"resource": "fused:heal_cooldown",
+						"change": -1
+					}
+				}
+			]
+		}
+	},
+	"invisibility": {
+		"type": "origins:invisibility",
+		"render_armor": false,
+		"condition": {
+			"type": "origins:resource",
+			"resource": "fused:ef_duration_dura",
+			"comparison": ">=",
+			"compare_to": 1
+		}
+	},
+	"fall_immunity": {
+		"type": "origins:invulnerability",
+		"damage_condition": {
+			"type": "origins:name",
+			"name": "fall"
+		},
+		"condition": {
+			"type": "origins:resource",
+			"resource": "fused:ef_duration_dura",
+			"comparison": ">=",
+			"compare_to": 1
+		}
+	},
+	"fire_immunity": {
+		"type": "origins:fire_immunity",
+		"condition": {
+			"type": "origins:resource",
+			"resource": "fused:ef_duration_dura",
+			"comparison": ">=",
+			"compare_to": 1
+		}
+	},
+	"arrow_immunity": {
+		"type": "origins:invulnerability",
+		"damage_condition": {
+			"type": "origins:name",
+			"name": "arrow"
+		},
+		"condition": {
+			"type": "origins:resource",
+			"resource": "fused:ef_duration_dura",
+			"comparison": ">=",
+			"compare_to": 1
+		}
+	},
+	"phasing": {
+		"type": "origins:phasing",
+		"blacklist": true,
+		"render_type": "blindness",
+		"view_distance": 100,
+		"block_condition": {
+			"type": "origins:in_tag",
+			"tag": "origins:unphasable"
+		},
+		"phase_down_condition": {
+			"type": "origins:sneaking"
+		},
+		"condition": {
+			"type": "origins:resource",
+			"resource": "fused:ef_duration_dura",
+			"comparison": ">=",
+			"compare_to": 1
+		}
+    },
+	"jump_boost": {
+		"type": "origins:modify_jump",
+		"modifier": {
+			"operation": "multiply_base",
+			"value": 0.5
+		},
+		"condition": {
+			"type": "origins:and",
+			"conditions": [
+				{
+					"type": "origins:resource",
+					"resource": "fused:ef_duration_dura",
+					"comparison": ">=",
+					"compare_to": 1
+				},
+				{
+					"type": "origins:in_block",
+					"block_condition": {
+						"type": "origins:movement_blocking"
+					},
+					"inverted": true
+				}
+			]
+		},
+		"entity_action": {
+			"type": "origins:execute_command",
+			"command": "particle minecraft:dust_color_transition 0.7 1.0 0.5 1.0 0.0 0.0 0.0 ~ ~ ~ 0.3 0 0.3 0.5 7 force @a",
+			"permission_level": 4
+		}
+	},
+	"sprint_boost": {
+		"type": "origins:conditioned_attribute",
+		"modifiers": {
+			"attribute": "minecraft:generic.movement_speed",
+			"operation": "addition",
+			"value": 0.1
+		},
+		"tick_rate": 10,
+		"condition": {
+			"type": "origins:and",
+			"conditions": [
+				{
+					"type": "origins:sprinting"
+				},
+				{
+					"type": "origins:resource",
+					"resource": "fused:ef_duration_dura",
+					"comparison": ">=",
+					"compare_to": 1
+				}
+			]
+		}
+	},
+	"slow_falling": {
+		"type": "origins:active_self",
+		"cooldown": 1,
+		"hud_render": {
+			"should_render": false
+		},
+		"key": {
+			"key": "key.jump",
+			"continuous": true
+		},
+		"condition": { 
+			"type": "origins:and",
+			"conditions": [
+				{
+					"type": "origins:resource",
+					"resource": "fused:ef_duration_dura",
+					"comparison": ">=",
+					"compare_to": 1
+				},
+				{
+					"type": "origins:fall_flying",
+					"inverted": true
+				},
+				{
+					"type": "origins:on_block",
+					"inverted": true
+				}
+			]
+		},
+		"entity_action": {
+			"type": "origins:and",
+			"actions": [
+				{
+					"type": "origins:apply_effect",
+					"effect": {
+						"effect": "minecraft:slow_falling",
+						"duration": 5,
+						"show_particles": false,
+						"show_icon": true,
+						"is_ambient": true
+					}
+				},
+				{
+					"type": "origins:execute_command",
+					"command": "particle minecraft:totem_of_undying ~ ~ ~ 0.3 0 0.3 0 1 force @a",
+					"permission_level": 4
+				}
+			]
+		}
+	},
+	"constant_attributes": {
+		"type": "origins:conditioned_attribute",
+		"tick_rate": 7,
+		"condition": {
+			"type": "origins:resource",
+			"resource": "fused:ef_duration_dura",
+			"comparison": ">=",
+			"compare_to": 1
+		},
+		"modifiers": [
+			{
+				"attribute": "minecraft:generic.movement_speed",
+				"operation": "addition",
+				"value": 0.05	
+			},
+			{
+				"attribute": "minecraft:generic.max_health",
+				"operation": "multiply_total",
+				"value": -0.2
+			},
+			{
+				"attribute": "minecraft:generic.attack_damage",
+				"operation": "multiply_total",
+				"value": -0.5
+			},
+			{
+				"attribute": "reach-entity-attributes:attack_range",
+				"operation": "multiply_total",
+				"value": -0.5
+			},
+			{
+				"attribute": "reach-entity-attributes:reach",
+				"operation": "multiply_total",
+				"value": -0.5
+			}
+		]
+	},
+	"air_speed": {
+		"type": "origins:modify_air_speed",
+		"modifier": {
+			"operation": "multiply_base",
+			"value": 0.5
+		},
+		"condition": {
+			"type": "origins:and",
+			"conditions": [
+				{
+					"type": "origins:resource",
+					"resource": "fused:ef_duration_dura",
+					"comparison": ">=",
+					"compare_to": 1
+				},
+				{
+					"type": "origins:sprinting",
+					"inverted": false
+				}
+			]
+		}
+	},
+	"air_speed_sprinting": {
+		"type": "origins:modify_air_speed",
+		"modifier": {
+			"operation": "multiply_base",
+			"value": 1.5
+		},
+		"condition": {
+			"type": "origins:and",
+			"conditions": [
+				{
+					"type": "origins:resource",
+					"resource": "fused:ef_duration_dura",
+					"comparison": ">=",
+					"compare_to": 1
+				},
+				{
+					"type": "origins:sprinting"
+				}
+			]
+		}
+	},
+	"rise_in_tiles": {
+		"type": "origins:active_self",
+		"cooldown": 0,
+		"hud_render": {
+			"should_render": false
+		},
+		"key": {
+			"key": "key.jump",
+			"continuous": true
+		},
+		"condition": {
+			"type": "origins:and",
+			"conditions": [
+				{
+					"type": "origins:resource",
+					"resource": "fused:ef_duration_dura",
+					"comparison": ">=",
+					"compare_to": 1
+				},
+				{
+					"type": "origins:in_block",
+					"block_condition": {
+						"type": "origins:movement_blocking"
+					}
+				}
+			]
+		},
+		"entity_action": {
+			"type": "origins:apply_effect",
+			"effect": {
+				"effect": "minecraft:levitation",
+				"duration": 2,
+				"amplifier": 14,
+				"show_particles": false,
+				"show_icon": false
+			}
+		}
+	},
+	"prevent_jump_in_tiles": {
+		"type": "origins:modify_jump",
+		"modifier": {
+			"operation": "multiply_base",
+			"value": -1
+		},
+		"condition": {
+			"type": "origins:and",
+			"conditions": [
+				{
+					"type": "origins:resource",
+					"resource": "fused:ef_duration_dura",
+					"comparison": ">=",
+					"compare_to": 1
+				},
+				{
+					"type": "origins:in_block",
+					"block_condition": {
+						"type": "origins:movement_blocking"
+					}
+				}
+			]
+		}
+	},
+	"feet_particles": {
+		"type": "origins:action_over_time",
+		"interval": 2,
+		"condition": {
+			"type": "origins:and",
+			"conditions": [
+				{
+					"type": "origins:moving"
+				},
+				{
+					"type": "origins:on_block"
+				},
+				{
+					"type": "origins:resource",
+					"resource": "fused:ef_duration_dura",
+					"comparison": ">=",
+					"compare_to": 1
+				}
+			]
+		},
+		"entity_action": {
+			"type": "origins:if_else",
+			"condition": {
+				"type": "origins:sprinting"
+			},
+			"if_action": {
+				"type": "origins:execute_command",
+				"command": "particle minecraft:totem_of_undying ~ ~0.1 ~ 0.3 0 0.3 0 3 force @a",
+				"permission_level": 4
+			},
+			"else_action": {
+				"type": "origins:execute_command",
+				"command": "particle minecraft:totem_of_undying ~ ~0.1 ~ 0.3 0 0.3 0 1 force @a",
+				"permission_level": 4
+			}
+		}
+	},
+	"body_particles": {
+		"type": "origins:action_over_time",
+		"interval": 13,
+		"condition": {
+			"type": "origins:resource",
+			"resource": "fused:ef_duration_dura",
+			"comparison": ">=",
+			"compare_to": 1
+		},
+		"entity_action": {
+			"type": "origins:execute_command",
+			"command": "execute at @s anchored eyes rotated ~ 0 positioned ~ ~0.7 ~ run particle minecraft:falling_dust vine ^ ^ ^-0.5 0.17 0.5 0.17 0.0001 3 force @a",
+			"permission_level": 4
+		}
+	},
+	"lava_speed": {
+		"type": "origins:modify_lava_speed",
+		"modifier": {
+			"operation": "multiply_base",
+			"value": 1.0
+		},	
+		"condition": {
+			"type": "origins:resource",
+			"resource": "fused:ef_duration_dura",
+			"comparison": ">=",
+			"compare_to": 1
+		}
+	},
+	"lava_vision": {
+		"type": "origins:lava_vision",
+		"s": 0,
+		"v": 30,
+		"condition": {
+			"type": "origins:resource",
+			"resource": "fused:ef_duration_dura",
+			"comparison": ">=",
+			"compare_to": 1
+		}
+	},
+	"fall_block": {
+		"type": "origins:invulnerability",
+		"damage_condition": {
+			"type": "origins:name",
+			"name": "fall"
+		},
+		"condition": {
+			"type": "origins:resource",
+			"resource": "fused:ef_cooldown_fall",
+			"comparison": "==",
+			"compare_to": 1
+		}
+	},
+	"fall_block_remove": {
+		"type": "origins:action_on_land",
+		"entity_action": {
+			"type": "origins:delay",
+			"ticks": 1,
+			"action": {
+				"type": "origins:change_resource",
+				"resource": "fused:ef_cooldown_fall",
+				"change": -1
+			}
+		},
+		"condition": {
+			"type": "origins:resource",
+			"resource": "fused:ef_cooldown_fall",
+			"comparison": "==",
+			"compare_to": 1
+		}
+	},
+	"overlay": {
+		"type": "origins:overlay",
+		"draw_mode": "nausea",
+		"draw_phase": "below_hud",
+		"red": 0.3,
+		"blue": 0.3,
+		"strength": 0.5,
+		"texture": "minecraft:textures/misc/nausea.png",
+		"visible_in_third_person": true,
+		"condition": {
+			"type": "origins:resource",
+			"resource": "fused:ef_duration_dura",
+			"comparison": ">=",
+			"compare_to": 1
+		}
+	},
+	"prevent_shield_use": {
+		"type": "origins:prevent_item_use",
+		"item_condition": {
+			"type": "origins:ingredient",
+			"ingredient": {
+				"item": "minecraft:shield"
+			}
+		},
+		"condition": {
+			"type": "origins:resource",
+			"resource": "fused:ef_duration_dura",
+			"comparison": ">=",
+			"compare_to": 1
+		}
+	},
+	"prevent_elytra": {
+		"type": "origins:prevent_elytra_flight",
+		"condition": {
+			"type": "origins:resource",
+			"resource": "fused:ef_duration_dura",
+			"comparison": ">=",
+			"compare_to": 1
+		}
+	},
+	"prevent_entity_collision": {
+		"type": "origins:prevent_entity_collision",
+		"condition": {
+			"type": "origins:resource",
+			"resource": "fused:ef_duration_dura",
+			"comparison": ">=",
+			"compare_to": 1
+		}
+	},
+	"prevent_sculk_sensors": {
+		"type": "origins:prevent_game_event",
+		"condition": {
+			"type": "origins:resource",
+			"resource": "fused:ef_duration_dura",
+			"comparison": ">=",
+			"compare_to": 1
+		}
+	}
+}

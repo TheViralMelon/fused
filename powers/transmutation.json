@@ -1,0 +1,61 @@
+{
+	"name": "§a§l§nTransmutation",
+	"description": "Your soul is closely linked with experience points, allowing you to convert them into health by pressing §eSecondary§r.\nWhile the cooldown for this ability is lengthy, killing a mob will reduce it by 10 seconds.\n§a[This power is affected by Magic Energy; for each missing point of Magic Energy, the cost is raised by 5 experience points]",
+	"badges": [
+		{
+			"sprite": "minecraft:textures/item/book.png",
+			"text": "Heals 6 health; cooldown is 90 seconds; base cost is 15 experience points."
+		}
+	],
+	"type": "origins:active_self",
+	"key": "key.origins.secondary_active",
+	"entity_action": {
+		"type": "origins:and",
+		"actions": [
+			{
+				"type": "origins:execute_command",
+				"command": "function fused:transmute"
+			},
+			{
+				"type": "origins:heal",
+				"amount": 6
+			},
+			{
+				"type": "origins:change_resource",
+				"resource": "fused:heal_cooldown",
+				"change": 360
+			}
+		]
+	},
+	"cooldown": 40,
+	"hud_render": {
+		"should_render": false
+	},
+	"condition": {
+		"type": "origins:and",
+		"conditions": [
+			{
+				"type": "origins:xp_levels",
+				"comparison": ">=",
+				"compare_to": 1
+			},
+			{
+				"type": "origins:relative_health",
+				"comparison": "<",
+				"compare_to": 1.0
+			},
+			{
+				"type": "origins:resource",
+				"resource": "fused:heal_cooldown",
+				"comparison": "==",
+				"compare_to": 0
+			},
+			{
+				"type": "origins:resource",
+				"resource": "fused:repossession_freeze",
+				"comparison": "==",
+				"compare_to": 0
+			}
+		]
+	}
+}

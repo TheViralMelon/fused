@@ -1,0 +1,594 @@
+{
+    "type": "origins:action_over_time",
+    "interval": 10,
+    "hidden": true,
+    "entity_action": {
+        "type": "origins:and",
+        "actions": [
+            {
+                "type": "origins:if_else_list",
+                "actions": [
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "head",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:chainmail_helmet"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 3"
+                        }
+                    },
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "head",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:turtle_helmet"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 3"
+                        }
+                    },
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "head",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:leather"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 4"
+                        }
+                    },
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "head",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:diamond_helmet"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 7"
+                        }
+                    },
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "head",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:iron_helmet"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 8"
+                        }
+                    },
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "head",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:golden_helmet"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 9"
+                        }
+                    },
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "head",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:netherite_helmet"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 10"
+                        }
+                    }
+                ]
+            },
+            {
+                "type": "origins:if_else_list",
+                "actions": [
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "chest",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:chainmail_chestplate"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 3"
+                        }
+                    },
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "chest",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:leather_chestplate"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 4"
+                        }
+                    },
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "chest",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:diamond_chestplate"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 7"
+                        }
+                    },
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "chest",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:iron_chestplate"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 8"
+                        }
+                    },
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "chest",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:golden_chestplate"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 9"
+                        }
+                    },
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "chest",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:netherite_chestplate"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 10"
+                        }
+                    }
+                ]
+            },
+            {
+                "type": "origins:if_else_list",
+                "actions": [
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "legs",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:chainmail_leggings"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 3"
+                        }
+                    },
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "legs",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:leather_leggings"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 4"
+                        }
+                    },
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "legs",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:diamond_leggings"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 7"
+                        }
+                    },
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "legs",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:iron_leggings"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 8"
+                        }
+                    },
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "legs",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:golden_leggings"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 9"
+                        }
+                    },
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "legs",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:netherite_leggings"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 10"
+                        }
+                    }
+                ]
+            },
+            {
+                "type": "origins:if_else_list",
+                "actions": [
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "feet",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:chainmail_boots"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 3"
+                        }
+                    },
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "feet",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:leather_boots"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 4"
+                        }
+                    },
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "feet",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:diamond_boots"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 7"
+                        }
+                    },
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "feet",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:iron_boots"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 8"
+                        }
+                    },
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "feet",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:golden_boots"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 9"
+                        }
+                    },
+                    {
+                        "condition": {
+                            "type": "origins:equipped_item",
+                            "equipment_slot": "feet",
+                            "item_condition": {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "item": "minecraft:netherite_boots"
+                                }
+                            }
+                        },
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players add @s fusedMana 10"
+                        }
+                    }
+                ]
+            },
+            {
+                "type": "origins:if_else",
+                "condition": {
+                    "type": "origins:equipped_item",
+                    "equipment_slot": "feet",
+                    "item_condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "tag": "fused:armor"
+                                },
+                                "inverted": true
+                            },
+                            {
+                                "type": "origins:empty",
+                                "inverted": true
+                            }
+                        ]
+                    }
+                },
+                "if_action": {
+                    "type": "origins:and",
+                    "actions": [
+                        {
+                            "type": "origins:execute_command",
+                            "command": "execute store result score @s fusedMeCounter run attribute @s minecraft:generic.armor modifier value get 845DB27C-C624-495F-8C9F-6020A9A58B6B 2"
+                        },
+                        {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players operation @s fusedMana += @s fusedMeCounter"
+                        },
+                        {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players set @s fusedMeCounter 0"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "origins:if_else",
+                "condition": {
+                    "type": "origins:equipped_item",
+                    "equipment_slot": "legs",
+                    "item_condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "tag": "fused:armor"
+                                },
+                                "inverted": true
+                            },
+                            {
+                                "type": "origins:empty",
+                                "inverted": true
+                            }
+                        ]
+                    }
+                },
+                "if_action": {
+                    "type": "origins:and",
+                    "actions": [
+                        {
+                            "type": "origins:execute_command",
+                            "command": "execute store result score @s fusedMeCounter run attribute @s minecraft:generic.armor modifier value get D8499B04-0E66-4726-AB29-64469D734E0D 2"
+                        },
+                        {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players operation @s fusedMana += @s fusedMeCounter"
+                        },
+                        {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players set @s fusedMeCounter 0"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "origins:if_else",
+                "condition": {
+                    "type": "origins:equipped_item",
+                    "equipment_slot": "chest",
+                    "item_condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "tag": "fused:armor"
+                                },
+                                "inverted": true
+                            },
+                            {
+                                "type": "origins:empty",
+                                "inverted": true
+                            }
+                        ]
+                    }
+                },
+                "if_action": {
+                    "type": "origins:and",
+                    "actions": [
+                        {
+                            "type": "origins:execute_command",
+                            "command": "execute store result score @s fusedMeCounter run attribute @s minecraft:generic.armor modifier value get 9F3D476D-C118-4544-8365-64846904B48E 2"
+                        },
+                        {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players operation @s fusedMana += @s fusedMeCounter"
+                        },
+                        {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players set @s fusedMeCounter 0"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "origins:if_else",
+                "condition": {
+                    "type": "origins:equipped_item",
+                    "equipment_slot": "head",
+                    "item_condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "tag": "fused:armor"
+                                },
+                                "inverted": true
+                            },
+                            {
+                                "type": "origins:empty",
+                                "inverted": true
+                            }
+                        ]
+                    }
+                },
+                "if_action": {
+                    "type": "origins:and",
+                    "actions": [
+                        {
+                            "type": "origins:execute_command",
+                            "command": "execute store result score @s fusedMeCounter run attribute @s minecraft:generic.armor modifier value get 2AD3F246-FEE1-4E67-B886-69FD380BB150 2"
+                        },
+                        {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players operation @s fusedMana += @s fusedMeCounter"
+                        },
+                        {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players set @s fusedMeCounter 0"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "origins:execute_command",
+                "command": "function fused:update_mana"
+            }
+        ]
+    }
+}

@@ -1,0 +1,88 @@
+{
+    "type": "origins:multiple",
+    "hidden": true,
+    "overlay": {
+        "type": "origins:overlay",
+		"draw_mode": "nausea",
+		"draw_phase": "below_hud",
+		"red": 0.3,
+		"blue": 0.3,
+		"strength": 0.5,
+		"texture": "minecraft:textures/misc/nausea.png",
+		"visible_in_third_person": true
+    },
+    "item_use": {
+        "type": "origins:prevent_item_use"
+    },
+    "attack_damage": {
+        "type": "origins:modify_damage_dealt",
+        "modifier": {
+            "operation": "multiply_total",
+            "value": -1
+        }
+    },
+    "break_speed": {
+        "type": "origins:modify_break_speed",
+        "modifier": {
+            "operation": "multiply_total",
+            "value": -1
+        }
+    },
+    "projectile": {
+        "type": "origins:modify_projectile_damage",
+        "modifier": {
+            "operation": "multiply_total",
+            "value": -1
+        }
+    },
+    "blindness": {
+        "type": "origins:stacking_status_effect",
+        "min_stacks": 1,
+        "max_stacks": 3,
+        "duration_per_stack": 10,
+        "tick_rate": 5,
+        "effect": {
+            "effect": "minecraft:blindness",
+            "is_ambient": "true",
+            "show_particles": "false",
+            "show_icon": false
+        }
+    },
+    "glowing": {
+        "type": "origins:self_glow",
+        "use_teams": false,
+        "red": 0,
+        "green": 1,
+        "blue": 0
+    },
+    "shaking": {
+        "type": "origins:shaking"
+    },
+    "particles": {
+        "type": "origins:action_over_time",
+        "interval": 5,
+        "entity_action": {
+            "type": "origins:execute_command",
+            "command": "particle block minecraft:chain ~ ~1 ~ 0.2 0.4 0.2 0.1 15 force @a"
+        }
+    },
+    "actionbar": {
+        "type": "origins:action_over_time",
+        "interval": 15,
+        "entity_action": {
+            "type": "origins:if_else",
+            "condition": {
+                "type": "origins:nbt",
+                "nbt": "{Tags:[\"fusedFused\"]}"
+            },
+            "if_action": {
+                "type": "origins:execute_command",
+                "command": "title @s actionbar {\"text\":\"You've equipped an item bound to the soul of another Fused! Attacks, item use, and block breaking are disabled!\",\"color\":\"green\"}"
+            },
+            "else_action": {
+                "type": "origins:execute_command",
+                "command": "title @s actionbar {\"text\":\"You've equipped an item bound to the soul of a Fused! Attacks, item use, and block breaking are disabled!\",\"color\":\"green\"}"
+            }
+        }
+    }
+}

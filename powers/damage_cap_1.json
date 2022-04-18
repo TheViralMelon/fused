@@ -1,0 +1,57 @@
+{
+    "type": "origins:action_on_callback",
+    "entity_action_added": {
+        "type": "origins:and",
+        "actions": [
+            {
+                "type": "origins:execute_command",
+                "command": "execute store result score @s fusedTransmute run resource get @s fused:animated_damage_over_time"
+            },
+            {
+                "type": "origins:if_else",
+                "condition": {
+                    "type": "origins:command",
+                    "command": "execute if score @s fusedTransmute <= @s fusedDamageCap",
+                    "comparison": "==",
+                    "compare_to": 1
+                },
+                "if_action": {
+                    "type": "origins:change_resource",
+                    "resource": "fused:animated_damage_over_time",
+                    "change": 1
+                }
+            },
+            {
+                "type": "origins:execute_command",
+                "command": "scoreboard players set @s fusedTransmute 0"
+            },
+            {
+                "type": "origins:heal",
+                "amount": 1
+            },
+            {
+                "type": "origins:execute_command",
+                "command": "scoreboard players add @s fusedMeCounter 1"
+            },
+            {
+                "type": "origins:revoke_power",
+                "power": "fused:damage_cap_1",
+                "source": "fused:animated"
+            }
+        ]
+    },
+    "entity_action_removed": {
+        "type": "origins:if_else",
+        "condition": {
+            "type": "origins:command",
+            "command": "execute if score @s fusedMeTransfer > @s fusedMeCounter",
+            "comparison": "==",
+            "compare_to": 1
+        },
+        "if_action": {
+            "type": "origins:grant_power",
+            "power": "fused:damage_cap_1",
+            "source": "fused:animated"
+        }
+    }
+}

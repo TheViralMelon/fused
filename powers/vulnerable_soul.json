@@ -1,0 +1,446 @@
+{
+	"type": "origins:multiple",
+	"name": "§a§l§nVulnerable Soul",
+	"description": "Iron is bane of your soul. Making direct contact with it sets you aflame, cancels §aEthereal Form§r and prevents you from activating §aEthereal Form§r for 2 seconds. Iron-clad targets will resist §aSoul Edge.\nChainmail armor does not trigger this effect.",
+	"badges": [
+		{
+			"sprite": "minecraft:textures/item/iron_pickaxe.png",
+			"text": "When holding an iron item, there is a delay before you ignite, allowing you to mine things like gold and diamonds by using a water bucket on yourself, then mining the block with an iron pickaxe."
+		},
+		{
+			"sprite": "minecraft:textures/item/iron_chestplate.png",
+			"text": "Iron-clad targets will make §aSoul Edge§r act as if your §aMagic Energy§r is 1.5 lower than what it actually is, per piece of iron armor."
+		},
+		{
+			"sprite": "minecraft:textures/item/writable_book.png",
+			"text": "Items that trigger this effect will be indicated by a tooltip."
+		}
+	],
+	"timer": {
+		"type": "origins:resource",
+		"min": 0,
+		"max": 4,
+		"hud_render": {
+			"should_render": false
+		}
+	},
+	"iron_blocks_burn": {
+		"type": "origins:burn",
+		"interval": 1,
+		"burn_duration": 3,
+		"condition": {
+			"type": "origins:or",
+			"conditions": [
+				{
+					"type": "origins:in_block_anywhere",
+					"block_condition": {
+						"type": "origins:in_tag",
+						"tag": "fused:fused_solid_iron"
+					}
+				},
+				{
+					"type": "origins:on_block",
+					"block_condition": {
+						"type": "origins:in_tag",
+						"tag": "fused:fused_solid_iron"
+					}
+				}
+			]
+		}
+	},
+	"tooltip": {
+		"type": "origins:tooltip",
+		"item_condition": {
+			"type": "origins:ingredient",
+			"ingredient": {
+				"tag": "fused:fused_solid_iron"
+			}
+		},
+		"texts": [
+			{
+				"text": "This item is iron; you will ignite when",
+				"color": "gray"
+			},
+			{
+				"translate": "%1$s %2$s",
+				"with": [
+					{
+						"text": "touching it, due to",
+						"color": "gray"
+					},
+					{
+						"text": "Vulnerable Soul.",
+						"color": "green"
+					}
+				]
+			}
+		]
+	},
+	"iron_ef_cancel": {
+		"type": "origins:action_over_time",
+		"interval": 5,
+		"rising_action": {
+			"type": "origins:and",
+			"actions": [
+				{
+					"type": "origins:trigger_cooldown",
+					"power": "fused:vulnerable_soul_ef_cancel"
+				},
+				{
+					"type": "origins:change_resource",
+					"resource": "fused:ef_duration_dura",
+					"change": 0,
+					"operation": "set"
+				}
+			]
+		},
+		"condition": {
+			"type": "origins:and",
+			"conditions": [
+				{
+					"type": "origins:or",
+					"conditions": [
+						{
+							"type": "origins:in_block_anywhere",
+							"block_condition": {
+								"type": "origins:in_tag",
+								"tag": "fused:fused_solid_iron"
+							}
+						},
+						{
+							"type": "origins:on_block",
+							"block_condition": {
+								"type": "origins:in_tag",
+								"tag": "fused:fused_solid_iron"
+							}
+						}
+					]
+				},
+				{
+					"type": "origins:resource",
+					"resource": "fused:ef_duration_dura",
+					"comparison": ">=",
+					"compare_to": 1
+				}	
+			]
+		}
+	},
+	"iron_items_on_hit": {
+		"type": "origins:self_action_when_hit",
+		"cooldown": 1,
+		"entity_action": {
+			"type": "origins:and",
+			"actions": [
+				{
+					"type": "origins:set_on_fire",
+					"duration": 3
+				},
+				{
+					"type": "origins:change_resource",
+					"resource": "fused:ef_duration_dura",
+					"change": 0,
+					"operation": "set"
+				},
+				{
+					"type": "origins:trigger_cooldown",
+					"power": "fused:vulnerable_soul_ef_cancel"
+				}
+			]
+		},
+		"damage_condition":
+		{
+			"type": "origins:attacker",
+			"entity_condition": {
+				"type": "origins:or",
+				"conditions": [
+					{
+						"type": "origins:equipped_item",
+						"equipment_slot": "mainhand",
+						"item_condition": {
+							"type": "origins:ingredient",
+							"ingredient": {
+								"tag": "fused:fused_solid_iron"
+							}
+						}
+					},
+					{
+						"type": "origins:entity_type",
+						"entity_type": "minecraft:iron_golem"
+					}
+				]
+			}
+		}
+	},
+	"iron_items_held": {
+		"type": "origins:action_over_time",
+		"interval": 7,
+		"entity_action": {
+			"type": "origins:if_else_list",
+			"actions": [
+				{
+					"action": {
+						"type": "origins:and",
+						"actions": [
+							{
+								"type": "origins:if_else",
+								"if_action": {
+									"type": "origins:change_resource",
+									"resource": "fused:vulnerable_soul_timer",
+									"change": 1
+								},
+								"condition": {
+									"type": "origins:resource",
+									"resource": "fused:vulnerable_soul_timer",
+									"comparison": "<=",
+									"compare_to": 3
+								}
+							},
+							{
+								"type": "origins:if_else",
+								"if_action": {
+									"type": "origins:and",
+									"actions": [
+										{
+											"type": "origins:execute_command",
+											"command": "playsound minecraft:block.fire.extinguish master @a ~ ~ ~ 1 2"
+										},
+										{
+											"type": "origins:execute_command",
+											"command": "particle minecraft:smoke ~ ~1 ~ 0.2 0.5 0.2 0.05 10 normal @a"
+										}
+									]
+								},
+								"condition": {
+									"type": "origins:resource",
+									"resource": "fused:vulnerable_soul_timer",
+									"comparison": "<=",
+									"compare_to": 2
+								}
+							},
+							{
+								"type": "origins:if_else",
+								"if_action": {
+									"type": "origins:and",
+									"actions": [
+										{
+											"type": "origins:execute_command",
+											"command": "playsound minecraft:entity.blaze.shoot master @s ~ ~ ~ 0.5 0.8"
+										},
+										{
+											"type": "origins:execute_command",
+											"command": "particle minecraft:flame ~ ~1 ~ 0.2 0.5 0.2 0.05 10 normal @a"
+										}
+									]
+								},
+								"condition": {
+									"type": "origins:resource",
+									"resource": "fused:vulnerable_soul_timer",
+									"comparison": "==",
+									"compare_to": 3
+								}
+							},
+							{
+								"type": "origins:if_else",
+								"if_action": {
+									"type": "origins:and",
+									"actions": [
+										{
+											"type": "origins:set_on_fire",
+											"duration": 3
+										},
+										{
+											"type": "origins:trigger_cooldown",
+											"power": "fused:vulnerable_soul_ef_cancel"
+										}
+									]
+								},
+								"condition": {
+									"type": "origins:resource",
+									"resource": "fused:vulnerable_soul_timer",
+									"comparison": ">=",
+									"compare_to": 3
+								}
+							},
+							{
+								"type": "origins:if_else",
+								"if_action": {
+									"type": "origins:change_resource",
+									"resource": "fused:ef_duration_dura",
+									"change": 0,
+									"operation": "set"
+								},
+								"condition": {
+									"type": "origins:and",
+									"conditions": [
+										{
+											"type": "origins:resource",
+											"resource": "fused:vulnerable_soul_timer",
+											"comparison": ">=",
+											"compare_to": 3
+										},
+										{
+											"type": "origins:resource",
+											"resource": "fused:ef_duration_dura",
+											"comparison": ">=",
+											"compare_to": 1
+										}
+									]
+								}	
+							}
+						]
+					},
+					"condition": {
+						"type": "origins:or",
+						"conditions": [
+							{
+								"type": "origins:equipped_item",
+								"equipment_slot": "mainhand",
+								"item_condition": {
+									"type": "origins:ingredient",
+									"ingredient": {
+										"tag": "fused:fused_solid_iron"
+									}
+								}
+							},
+							{
+								"type": "origins:equipped_item",
+								"equipment_slot": "offhand",
+									"item_condition": {
+									"type": "origins:ingredient",
+									"ingredient": {
+										"tag": "fused:fused_solid_iron"
+									}
+								}	
+							},
+							{
+								"type": "origins:equipped_item",
+								"equipment_slot": "head",
+								"item_condition": {
+									"type": "origins:ingredient",
+									"ingredient": {
+										"tag": "fused:fused_solid_iron"
+									}
+								}
+							},
+							{
+								"type": "origins:equipped_item",
+								"equipment_slot": "chest",
+								"item_condition": {
+									"type": "origins:ingredient",
+									"ingredient": {
+										"tag": "fused:fused_solid_iron"
+									}
+								}
+							},
+							{
+								"type": "origins:equipped_item",
+								"equipment_slot": "legs",
+								"item_condition": {
+									"type": "origins:ingredient",
+									"ingredient": {
+										"tag": "fused:fused_solid_iron"
+									}
+								}
+							},
+							{
+								"type": "origins:equipped_item",
+								"equipment_slot": "feet",
+								"item_condition": {
+									"type": "origins:ingredient",
+									"ingredient": {
+										"tag": "fused:fused_solid_iron"
+									}
+								}
+							}
+						]
+					}
+				},
+				{
+					"action": {
+						"type": "origins:change_resource",
+						"resource": "fused:vulnerable_soul_timer",
+						"change": -3
+					},
+					"condition": {
+						"type": "origins:and",
+						"conditions": [
+							{
+								"type": "origins:equipped_item",
+								"equipment_slot": "mainhand",
+								"inverted": true,
+								"item_condition": {
+									"type": "origins:ingredient",
+									"ingredient": {
+										"tag": "fused:fused_solid_iron"
+									}
+								}
+							},
+							{
+							"type": "origins:equipped_item",
+							"equipment_slot": "offhand",
+							"inverted": true,
+							"item_condition": {
+								"type": "origins:ingredient",
+								"ingredient": {
+									"tag": "fused:fused_solid_iron"
+									}
+								}	
+							},
+							{
+								"type": "origins:equipped_item",
+								"equipment_slot": "head",
+								"inverted": true,
+								"item_condition": {
+									"type": "origins:ingredient",
+									"ingredient": {
+										"tag": "fused:fused_solid_iron"
+									}
+								}
+							},
+							{
+								"type": "origins:equipped_item",
+								"equipment_slot": "chest",
+								"inverted": true,
+								"item_condition": {
+									"type": "origins:ingredient",
+									"ingredient": {
+										"tag": "fused:fused_solid_iron"
+									}
+								}
+							},
+							{
+								"type": "origins:equipped_item",
+								"equipment_slot": "legs",
+								"inverted": true,
+								"item_condition": {
+									"type": "origins:ingredient",
+									"ingredient": {
+										"tag": "fused:fused_solid_iron"
+									}
+								}
+							},
+							{
+								"type": "origins:equipped_item",
+								"equipment_slot": "feet",
+								"inverted": true,
+								"item_condition": {
+									"type": "origins:ingredient",
+									"ingredient": {
+										"tag": "fused:fused_solid_iron"
+									}
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	},
+	"ef_cancel": {
+		"type": "origins:cooldown",
+		"cooldown": 25,
+		"hud_render": {
+			"should_render": false
+		}
+	}
+}

@@ -1,0 +1,359 @@
+{
+    "type": "origins:multiple",
+    "name": "§a§l§nRepossession",
+    "description": "You can reinhabit your body after you should have died, allowing you to revive.\nThis comes at a heavy magical cost, though, and you must sacrifice 50 experience points' worth of experience orbs to replenish this ability.",
+	"badges": [
+		{
+			"sprite": "minecraft:textures/item/book.png",
+			"text": "After triggering this effect, you will act as if in §aEthereal Form§r. After 6 seconds, you will freeze in place for 1.5 seconds and emit particles before respawning. For 1.5 seconds after respawning, you will remain invulnerable."
+		},
+		{
+			"sprite": "minecraft:textures/particle/heart.png",
+			"text": "By pressing §ePrimary§r while respawning with this power, you can initialize the 1.5-second freeze and subsequent respawn before the 6-second timer is up."
+		},
+		{
+			"sprite": "minecraft:textures/particle/glint.png",
+			"text": "Once this has triggered, you must also wait 2 minutes restore it. While experience orbs still need to be gathered, nearby ones will be destroyed to recharge this, and won't give you their usual experience."
+		}
+	],
+	"cost": {
+		"type": "origins:resource",
+		"min": 0,
+		"max": 50,
+		"hud_render": {
+			"sprite_location": "fused:textures/gui/resource_bar.png",
+			"bar_index": 12,
+			"condition": {
+				"type": "origins:or",
+				"conditions": [
+					{
+						"type": "origins:resource",
+						"resource": "fused:repossession_cost",
+						"comparison": ">=",
+						"compare_to": 1
+					},
+					{
+						"type": "origins:resource",
+						"resource": "fused:repossession_cooldown",
+						"comparison": ">=",
+						"compare_to": 1
+					}
+				]
+			}
+		}
+	},
+	"cooldown": {
+		"type": "origins:cooldown",
+		"cooldown": 2400,
+		"hud_render": {
+			"should_render": false
+		}
+	},
+	"freeze": {
+		"type": "origins:resource",
+		"min": 0,
+		"max": 2,
+		"hud_render": {
+			"should_render": false
+		}
+	},
+	"xp_orb_check": {
+		"type": "origins:action_over_time",
+		"interval": 1,
+		"entity_action": {
+			"type": "origins:if_else",
+			"condition": {
+				"type": "origins:resource",
+				"resource": "fused:repossession_cost",
+				"comparison": ">=",
+				"compare_to": 1
+			},
+			"if_action": {
+				"type": "origins:execute_command",
+				"command": "execute as @e[type=minecraft:experience_orb,distance=..2] at @s run function fused:xp_tally"
+			}
+		},
+		"condition": {
+			"type": "origins:and",
+			"conditions": [
+				{
+					"type": "origins:or",
+					"conditions": [
+						{
+							"type": "origins:resource",
+							"resource": "fused:repossession_cost",
+							"comparison": ">=",
+							"compare_to": 1
+						},
+						{
+							"type": "origins:resource",
+							"resource": "fused:repossession_cooldown",
+							"comparison": ">=",
+							"compare_to": 1
+						}
+					]
+				},
+				{
+					"type": "origins:resource",
+					"resource": "fused:repossession_freeze",
+					"comparison": "==",
+					"compare_to": 0
+				}
+			]
+		},
+		"falling_action": {
+			"type": "origins:execute_command",
+			"command": "function fused:repossession_restore"
+		}
+	},
+	"prevent_death": {
+		"type": "origins:prevent_death",
+		"entity_action": {
+			"type": "origins:and",
+			"actions": [
+				{
+					"type": "origins:change_resource",
+					"resource": "fused:repossession_freeze",
+					"change": 2,
+					"operation": "set"
+				},
+				{
+					"type": "origins:trigger_cooldown",
+					"power": "fused:repossession_cooldown"
+				},
+				{
+					"type": "origins:change_resource",
+					"resource": "fused:heal_cooldown",
+					"change": -360
+				},
+				{
+					"type": "origins:change_resource",
+					"resource": "fused:ef_duration_dura",
+					"change": -33
+				},
+				{
+					"type": "origins:change_resource",
+					"resource": "fused:ef_cooldown_cd",
+					"change": -80
+				},
+				{
+					"type": "origins:change_resource",
+					"resource": "fused:animated_damage_cap",
+					"change": 0,
+					"operation": "set"
+				},
+				{
+					"type": "origins:execute_command",
+					"command": "particle minecraft:totem_of_undying ~ ~1 ~ 0.2 0.5 0.2 0.5 150 normal @a"
+				},
+				{
+					"type": "origins:execute_command",
+					"command": "playsound minecraft:item.totem.use master @a ~ ~ ~ 0.6 1.5"
+				},
+				{
+					"type": "origins:execute_command",
+					"command": "playsound minecraft:entity.zombie_villager.cure master @a ~ ~ ~ 0.6 1.2"
+				},
+				{
+					"type": "origins:execute_command",
+					"command": "playsound minecraft:entity.player.levelup master @a ~ ~ ~ 0.3 1.3"
+				},
+				{
+					"type": "origins:clear_effect"
+				},
+				{
+					"type": "origins:delay",
+					"ticks": 2,
+					"action": {
+						"type": "origins:apply_effect",
+						"effect": {
+						"effect": "minecraft:regeneration",
+							"duration": 118,
+							"amplifier": 3,
+							"show_icon": false,
+							"is_ambient": true,
+							"show_particles": false
+						}
+					}
+				},
+				{
+					"type": "origins:grant_power",
+					"power": "fused:repossession_countdown",
+					"source": "fused:repossession"
+				},
+				{
+					"type": "origins:change_resource",
+					"resource": "fused:repossession_cost",
+					"change": 50
+				}
+			]
+		},
+		"condition": {
+			"type": "origins:and",
+			"conditions": [
+				{
+					"type": "origins:resource",
+					"resource": "fused:repossession_cost",
+					"comparison": "==",
+					"compare_to": 0
+				},
+				{
+					"type": "origins:equipped_item",
+					"equipment_slot": "mainhand",
+					"item_condition": {
+						"type": "origins:ingredient",
+						"ingredient": {
+							"item": "minecraft:totem_of_undying"
+						}
+					},
+					"inverted": true
+				},
+				{
+					"type": "origins:equipped_item",
+					"equipment_slot": "mainhand",
+					"item_condition": {
+						"type": "origins:ingredient",
+						"ingredient": {
+							"item": "minecraft:totem_of_undying"
+						}
+					},
+					"inverted": true
+				},
+				{
+					"type": "origins:resource",
+            		"comparison": "==",
+           			"compare_to": 0,
+           			"resource": "patchwork:constellations/cancer/prevent_death_resource"
+				},
+				{
+					"type": "origins:resource",
+					"resource": "fused:repossession_cooldown",
+					"comparison": "==",
+					"compare_to": 0
+				},
+				{
+					"type": "origins:command",
+					"command": "execute if score @s fusedHealth >= @s fusedDamageCap",
+					"comparison": "==",
+					"compare_to": 0
+				}
+			]
+		}
+	},
+	"phasing": {
+		"type": "origins:phasing",
+		"blacklist": true,
+		"render_type": "blindness",
+		"view_distance": 300,
+		"block_condition": {
+			"type": "origins:or",
+			"conditions": [
+				{
+					"type": "origins:in_tag",
+					"tag": "fused:fused_solid_iron"
+				},
+				{
+					"type": "origins:in_tag",
+					"tag": "origins:unphasable"
+				},
+				{
+					"type": "origins:block",
+					"block": "minecraft:nether_portal"
+				},
+				{
+					"type": "origins:block",
+					"block": "minecraft:end_portal"
+				},
+				{
+					"type": "origins:block",
+					"block": "minecraft:end_gateway"
+				}
+			]
+		},
+		"phase_down_condition": {
+			"type": "origins:sneaking"
+		},
+		"condition": {
+			"type": "origins:status_effect",
+			"effect": "minecraft:regeneration"
+		}
+	},
+	"rise_in_tiles": {
+		"type": "origins:active_self",
+		"cooldown": 0,
+		"hud_render": {
+			"should_render": false
+		},
+		"key": {
+			"key": "key.jump",
+			"continuous": true
+		},
+		"condition": {
+			"type": "origins:and",
+			"conditions": [
+				{
+					"type": "origins:status_effect",
+					"effect": "minecraft:regeneration"
+				},
+				{
+					"type": "origins:in_block",
+					"block_condition": {
+						"type": "origins:movement_blocking"
+					}
+				}
+			]
+		},
+		"entity_action": {
+			"type": "origins:apply_effect",
+			"effect": {
+				"effect": "minecraft:levitation",
+				"duration": 2,
+				"amplifier": 7,
+				"show_particles": false,
+				"show_icon": false
+			}
+		}
+	},
+	"prevent_jump_in_tiles": {
+		"type": "origins:modify_jump",
+		"modifier": {
+			"operation": "multiply_base",
+			"value": -1
+		},
+		"condition": {
+			"type": "origins:and",
+			"conditions": [
+				{
+					"type": "origins:status_effect",
+					"effect": "minecraft:regeneration"
+				},
+				{
+					"type": "origins:in_block",
+					"block_condition": {
+						"type": "origins:movement_blocking"
+					}
+				}
+			]
+		}
+	},
+	"lava_speed": {
+		"type": "origins:modify_lava_speed",
+		"modifier": {
+			"operation": "multiply_base",
+			"value": 1.0
+		},
+		"condition": {
+			"type": "origins:status_effect",
+			"effect": "minecraft:regeneration"
+		}
+	},
+	"lava_vision": {
+		"type": "origins:lava_vision",
+		"s": 0,
+		"v": 30,
+		"condition": {
+			"type": "origins:status_effect",
+			"effect": "minecraft:regeneration"
+		}
+	}
+}
