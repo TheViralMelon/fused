@@ -1,0 +1,25 @@
+{
+    "display": {
+        "title": {
+            "text": "Out-of-Body Meditation",
+            "color": "yellow"
+        },
+        "description": {
+            "text": "Let your spirit take a vacation from your body by staying in Ethereal Form for 10 seconds straight.",
+            "color": "light_purple"
+        },
+        "icon": {
+            "item": "minecraft:clock"
+        },
+        "frame": "goal",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "no": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "parent": "fused:ef_cancel"
+}

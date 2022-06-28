@@ -1,0 +1,410 @@
+{
+    "type": "origins:action_on_callback",
+    "entity_action_added": {
+        "type": "origins:and",
+        "actions": [
+            {
+                "type": "origins:if_else",
+                "condition": {
+                    "type": "origins:command",
+                    "command": "execute if entity @s[nbt={SelectedItem:{tag:{fusedSoulbound:1}}}]",
+                    "comparison": "==",
+                    "compare_to": 1
+                },
+                "if_action": {
+                    "type": "origins:and",
+                    "actions": [
+                        {
+                            "type": "origins:execute_command",
+                            "command": "function fused:uuid_store_mainhand"
+                        },
+                        {
+                            "type": "origins:if_else",
+                            "condition": {
+                                "type": "origins:or",
+                                "conditions": [
+                                    {
+                                        "type": "origins:command",
+                                        "command": "execute if score @s fusedUUID0 = @s fusedUUID4",
+                                        "comparison": "==",
+                                        "compare_to": 0
+                                    },
+                                    {
+                                        "type": "origins:command",
+                                        "command": "execute if score @s fusedUUID1 = @s fusedUUID5",
+                                        "comparison": "==",
+                                        "compare_to": 0
+                                    },
+                                    {
+                                        "type": "origins:command",
+                                        "command": "execute if score @s fusedUUID2 = @s fusedUUID6",
+                                        "comparison": "==",
+                                        "compare_to": 0
+                                    },
+                                    {
+                                        "type": "origins:command",
+                                        "command": "execute if score @s fusedUUID3 = @s fusedUUID7",
+                                        "comparison": "==",
+                                        "compare_to": 0
+                                    },
+                                    {
+                                        "type": "origins:nbt",
+                                        "nbt": "{Tags:[\"fusedFused\"]}",
+                                        "inverted": true
+                                    }
+                                ]
+                            },
+                            "if_action": {
+                                "type": "origins:grant_power",
+                                "power": "fused:prevent_use",
+                                "source": "fused:soulbind_check"
+                            }
+                        },
+                        {
+                            "type": "origins:execute_command",
+                            "command": "function fused:uuid_reset"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "origins:if_else",
+                "condition": {
+                    "type": "origins:command",
+                    "command": "execute if entity @s[nbt={Inventory:[{Slot:-106b,tag:{fusedSoulbound:1}}]}]",
+                    "comparison": "==",
+                    "compare_to": 1
+                },
+                "if_action": {
+                    "type": "origins:and",
+                    "actions": [
+                        {
+                            "type": "origins:execute_command",
+                            "command": "function fused:uuid_store_offhand"
+                        },
+                        {
+                            "type": "origins:if_else",
+                            "condition": {
+                                "type": "origins:or",
+                                "conditions": [
+                                    {
+                                        "type": "origins:command",
+                                        "command": "execute if score @s fusedUUID0 = @s fusedUUID4",
+                                        "comparison": "==",
+                                        "compare_to": 0
+                                    },
+                                    {
+                                        "type": "origins:command",
+                                        "command": "execute if score @s fusedUUID1 = @s fusedUUID5",
+                                        "comparison": "==",
+                                        "compare_to": 0
+                                    },
+                                    {
+                                        "type": "origins:command",
+                                        "command": "execute if score @s fusedUUID2 = @s fusedUUID6",
+                                        "comparison": "==",
+                                        "compare_to": 0
+                                    },
+                                    {
+                                        "type": "origins:command",
+                                        "command": "execute if score @s fusedUUID3 = @s fusedUUID7",
+                                        "comparison": "==",
+                                        "compare_to": 0
+                                    },
+                                    {
+                                        "type": "origins:nbt",
+                                        "nbt": "{Tags:[\"fusedFused\"]}",
+                                        "inverted": true
+                                    }
+                                ]
+                            },
+                            "if_action": {
+                                "type": "origins:grant_power",
+                                "power": "fused:prevent_use",
+                                "source": "fused:soulbind_check"
+                            }
+                        },
+                        {
+                            "type": "origins:execute_command",
+                            "command": "function fused:uuid_reset"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "origins:if_else",
+                "condition": {
+                    "type": "origins:command",
+                    "command": "execute if entity @s[nbt={Inventory:[{Slot:100b,tag:{fusedSoulbound:1}}]}]",
+                    "comparison": "==",
+                    "compare_to": 1
+                },
+                "if_action": {
+                    "type": "origins:and",
+                    "actions": [
+                        {
+                            "type": "origins:execute_command",
+                            "command": "function fused:uuid_store_feet"
+                        },
+                        {
+                            "type": "origins:if_else",
+                            "condition": {
+                                "type": "origins:or",
+                                "conditions": [
+                                    {
+                                        "type": "origins:command",
+                                        "command": "execute if score @s fusedUUID0 = @s fusedUUID4",
+                                        "comparison": "==",
+                                        "compare_to": 0
+                                    },
+                                    {
+                                        "type": "origins:command",
+                                        "command": "execute if score @s fusedUUID1 = @s fusedUUID5",
+                                        "comparison": "==",
+                                        "compare_to": 0
+                                    },
+                                    {
+                                        "type": "origins:command",
+                                        "command": "execute if score @s fusedUUID2 = @s fusedUUID6",
+                                        "comparison": "==",
+                                        "compare_to": 0
+                                    },
+                                    {
+                                        "type": "origins:command",
+                                        "command": "execute if score @s fusedUUID3 = @s fusedUUID7",
+                                        "comparison": "==",
+                                        "compare_to": 0
+                                    },
+                                    {
+                                        "type": "origins:nbt",
+                                        "nbt": "{Tags:[\"fusedFused\"]}",
+                                        "inverted": true
+                                    }
+                                ]
+                            },
+                            "if_action": {
+                                "type": "origins:grant_power",
+                                "power": "fused:prevent_use",
+                                "source": "fused:soulbind_check"
+                            }
+                        },
+                        {
+                            "type": "origins:execute_command",
+                            "command": "function fused:uuid_reset"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "origins:if_else",
+                "condition": {
+                    "type": "origins:command",
+                    "command": "execute if entity @s[nbt={Inventory:[{Slot:101b,tag:{fusedSoulbound:1}}]}]",
+                    "comparison": "==",
+                    "compare_to": 1
+                },
+                "if_action": {
+                    "type": "origins:and",
+                    "actions": [
+                        {
+                            "type": "origins:execute_command",
+                            "command": "function fused:uuid_store_legs"
+                        },
+                        {
+                            "type": "origins:if_else",
+                            "condition": {
+                                "type": "origins:or",
+                                "conditions": [
+                                    {
+                                        "type": "origins:command",
+                                        "command": "execute if score @s fusedUUID0 = @s fusedUUID4",
+                                        "comparison": "==",
+                                        "compare_to": 0
+                                    },
+                                    {
+                                        "type": "origins:command",
+                                        "command": "execute if score @s fusedUUID1 = @s fusedUUID5",
+                                        "comparison": "==",
+                                        "compare_to": 0
+                                    },
+                                    {
+                                        "type": "origins:command",
+                                        "command": "execute if score @s fusedUUID2 = @s fusedUUID6",
+                                        "comparison": "==",
+                                        "compare_to": 0
+                                    },
+                                    {
+                                        "type": "origins:command",
+                                        "command": "execute if score @s fusedUUID3 = @s fusedUUID7",
+                                        "comparison": "==",
+                                        "compare_to": 0
+                                    },
+                                    {
+                                        "type": "origins:nbt",
+                                        "nbt": "{Tags:[\"fusedFused\"]}",
+                                        "inverted": true
+                                    }
+                                ]
+                            },
+                            "if_action": {
+                                "type": "origins:grant_power",
+                                "power": "fused:prevent_use",
+                                "source": "fused:soulbind_check"
+                            }
+                        },
+                        {
+                            "type": "origins:execute_command",
+                            "command": "function fused:uuid_reset"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "origins:if_else",
+                "condition": {
+                    "type": "origins:command",
+                    "command": "execute if entity @s[nbt={Inventory:[{Slot:102b,tag:{fusedSoulbound:1}}]}]",
+                    "comparison": "==",
+                    "compare_to": 1
+                },
+                "if_action": {
+                    "type": "origins:and",
+                    "actions": [
+                        {
+                            "type": "origins:execute_command",
+                            "command": "function fused:uuid_store_chest"
+                        },
+                        {
+                            "type": "origins:if_else",
+                            "condition": {
+                                "type": "origins:or",
+                                "conditions": [
+                                    {
+                                        "type": "origins:command",
+                                        "command": "execute if score @s fusedUUID0 = @s fusedUUID4",
+                                        "comparison": "==",
+                                        "compare_to": 0
+                                    },
+                                    {
+                                        "type": "origins:command",
+                                        "command": "execute if score @s fusedUUID1 = @s fusedUUID5",
+                                        "comparison": "==",
+                                        "compare_to": 0
+                                    },
+                                    {
+                                        "type": "origins:command",
+                                        "command": "execute if score @s fusedUUID2 = @s fusedUUID6",
+                                        "comparison": "==",
+                                        "compare_to": 0
+                                    },
+                                    {
+                                        "type": "origins:command",
+                                        "command": "execute if score @s fusedUUID3 = @s fusedUUID7",
+                                        "comparison": "==",
+                                        "compare_to": 0
+                                    },
+                                    {
+                                        "type": "origins:nbt",
+                                        "nbt": "{Tags:[\"fusedFused\"]}",
+                                        "inverted": true
+                                    }
+                                ]
+                            },
+                            "if_action": {
+                                "type": "origins:grant_power",
+                                "power": "fused:prevent_use",
+                                "source": "fused:soulbind_check"
+                            }
+                        },
+                        {
+                            "type": "origins:execute_command",
+                            "command": "function fused:uuid_reset"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "origins:if_else",
+                "condition": {
+                    "type": "origins:command",
+                    "command": "execute if entity @s[nbt={Inventory:[{Slot:103b,tag:{fusedSoulbound:1}}]}]",
+                    "comparison": "==",
+                    "compare_to": 1
+                },
+                "if_action": {
+                    "type": "origins:and",
+                    "actions": [
+                        {
+                            "type": "origins:execute_command",
+                            "command": "function fused:uuid_store_head"
+                        },
+                        {
+                            "type": "origins:if_else",
+                            "condition": {
+                                "type": "origins:or",
+                                "conditions": [
+                                    {
+                                        "type": "origins:command",
+                                        "command": "execute if score @s fusedUUID0 = @s fusedUUID4",
+                                        "comparison": "==",
+                                        "compare_to": 0
+                                    },
+                                    {
+                                        "type": "origins:command",
+                                        "command": "execute if score @s fusedUUID1 = @s fusedUUID5",
+                                        "comparison": "==",
+                                        "compare_to": 0
+                                    },
+                                    {
+                                        "type": "origins:command",
+                                        "command": "execute if score @s fusedUUID2 = @s fusedUUID6",
+                                        "comparison": "==",
+                                        "compare_to": 0
+                                    },
+                                    {
+                                        "type": "origins:command",
+                                        "command": "execute if score @s fusedUUID3 = @s fusedUUID7",
+                                        "comparison": "==",
+                                        "compare_to": 0
+                                    },
+                                    {
+                                        "type": "origins:nbt",
+                                        "nbt": "{Tags:[\"fusedFused\"]}",
+                                        "inverted": true
+                                    }
+                                ]
+                            },
+                            "if_action": {
+                                "type": "origins:grant_power",
+                                "power": "fused:prevent_use",
+                                "source": "fused:soulbind_check"
+                            }
+                        },
+                        {
+                            "type": "origins:execute_command",
+                            "command": "function fused:uuid_reset"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "entity_action_removed": {
+        "type": "origins:and",
+        "actions": [
+            {
+                "type": "origins:revoke_power",
+                "power": "fused:prevent_use",
+                "source": "fused:soulbind_check"
+            },
+            {
+               "type": "origins:delay",
+               "ticks": 5,
+               "action": {
+                   "type": "origins:execute_command",
+                    "command": "title @s actionbar \"\""
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,13 @@
+[
+    {
+        "function": "minecraft:set_enchantments",
+        "enchantments": {
+            "minecraft:efficiency": 1
+        },
+        "add": true
+    },
+    {
+        "function": "minecraft:set_nbt",
+        "tag": "{fusedSoulboundEfficiency:1b}"
+    }
+]

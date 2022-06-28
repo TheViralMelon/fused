@@ -1,0 +1,28 @@
+{
+	"type": "origins:multiple",
+	"name":"§d§l§nPassive Abilities:§r",
+	"description": " ",
+	"normal": {
+		"type": "origins:model_color",
+		"red": 0.65,
+		"green": 1.0,
+		"blue": 0.65,
+		"alpha": 0.65,
+		"condition": {
+			"type": "origins:power",
+			"power": "fused:vsoul_active",
+			"inverted": true
+		}
+	},
+	"vulnerable": {
+		"type": "origins:model_color",
+		"red": 0.8,
+		"green": 1.0,
+		"blue": 0.2,
+		"alpha": 0.65,
+		"condition": {
+			"type": "origins:power",
+			"power": "fused:vsoul_active"
+		}
+	}
+}

@@ -1,0 +1,410 @@
+{
+    "type": "origins:multiple",
+    "cancel": {
+        "type": "origins:active_self",
+        "cooldown": 10,
+        "hud_render": {
+            "should_render": false
+        },
+        "entity_action": {
+            "type": "origins:revoke_power",
+            "power": "fused:ef_active",
+            "source": "fused:ethereal_form"
+        },
+        "condition": {
+            "type": "origins:resource",
+            "resource": "fused:ethereal_form_buffer",
+            "comparison": ">=",
+            "compare_to": 2
+        }
+    },
+    "duration": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 40,
+        "hud_render": {
+            "sprite_location": "fused:textures/gui/resource_bar.png",
+            "bar_index": 10,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "fused:ef_active_duration",
+                "comparison": ">=",
+                "compare_to": 1
+            }
+        },
+        "min_action": {
+            "type": "origins:revoke_power",
+            "power": "fused:ef_active",
+            "source": "fused:ethereal_form"
+        }
+    },
+    "decrement": {
+        "type": "origins:action_over_time",
+        "interval": 5,
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:change_resource",
+                    "resource": "fused:ef_active_duration",
+                    "change": -1
+                },
+                {
+                    "type": "origins:change_resource",
+                    "resource": "fused:ethereal_form_cooldown",
+                    "change": 2
+                },
+                {
+                    "type": "origins:change_resource",
+                    "resource": "fused:ethereal_form_buffer",
+                    "change": 1
+                }
+            ]
+        }
+    },
+    "callback": {
+        "type": "origins:action_on_callback",
+        "entity_action_gained": {
+            "type": "origins:and",
+            "actions": [
+				{
+					"type": "origins:execute_command",
+					"command": "function fused:ef_effects"
+				},
+				{
+					"type": "origins:execute_command",
+					"command": "title @s actionbar [{\"text\":\"Press \",\"color\":\"dark_green\",\"bold\":true},{\"keybind\":\"key.origins.primary_active\",\"color\":\"dark_green\",\"bold\":true},{\"text\":\" to exit  |  Lifesteal is increased\",\"color\":\"dark_green\",\"bold\":true}]"
+				},
+				{
+					"type": "origins:revoke_power",
+					"power": "fused:armor_50",
+					"source": "fused:hit_10"
+				},
+				{
+					"type": "origins:revoke_power",
+					"power": "fused:armor_25",
+					"source": "fused:hit_5"
+				},
+                {
+                    "type": "origins:execute_command",
+                    "command": "function fused:ef_activate"
+                },
+                {
+                    "type": "origins:change_resource",
+                    "resource": "fused:ethereal_form_buffer",
+                    "change": 0,
+                    "operation": "set"
+                }
+            ]
+        },
+        "entity_action_removed": {
+            "type": "origins:and",
+            "actions": [
+				{
+					"type": "origins:execute_command",
+					"command": "function fused:ef_dac"
+				},
+				{
+					"type": "origins:change_resource",
+					"resource": "ethereal_form_fall",
+					"change": 1
+				},
+                {
+                    "type": "origins:if_else",
+                    "condition": {
+                        "type": "origins:resource",
+                        "resource": "fused:ethereal_form_buffer",
+                        "comparison": ">=",
+                        "compare_to": 39
+                    },
+                    "if_action": {
+                        "type": "origins:execute_command",
+                        "command": "advancement grant @s only fused:ef_dri"
+                    }
+                }
+            ]
+        }
+    },
+    "invisibility": {
+		"type": "origins:invisibility",
+		"render_armor": false
+    },
+    "fall_immunity": {
+		"type": "origins:invulnerability",
+		"damage_condition": {
+			"type": "origins:name",
+			"name": "fall"
+		}
+    },
+    "fire_immunity": {
+		"type": "origins:fire_immunity"
+	},
+	"arrow_immunity": {
+		"type": "origins:invulnerability",
+		"damage_condition": {
+			"type": "origins:name",
+			"name": "arrow"
+		}
+	},
+	"phasing": {
+		"type": "origins:phasing",
+		"blacklist": true,
+		"render_type": "blindness",
+		"view_distance": 100,
+		"block_condition": {
+			"type": "origins:in_tag",
+			"tag": "origins:unphasable"
+		},
+		"phase_down_condition": {
+			"type": "origins:sneaking"
+		}
+    },
+	"ignore_liquids": {
+		"type": "origins:ignore_water"
+	},
+	"modify_velocity": {
+		"type": "origins:modify_velocity",
+		"modifier": {
+			"operation": "multiply_total_multiplicative",
+			"value": 1
+		}
+	},
+	"sprint_boost": {
+		"type": "origins:conditioned_attribute",
+		"ticks": 10,
+		"modifier": {
+			"attribute": "minecraft:generic.movement_speed",
+			"operation": "addition",
+			"value": 0.05
+		},
+		"condition": {
+			"type": "origins:sprinting"
+        }
+	},
+	"slow_falling": {
+		"type": "origins:active_self",
+		"cooldown": 1,
+		"hud_render": {
+			"should_render": false
+		},
+		"key": {
+			"key": "key.jump",
+			"continuous": true
+		},
+		"condition": { 
+			"type": "origins:on_block",
+			"inverted": true
+        },
+		"entity_action": {
+			"type": "origins:and",
+			"actions": [
+				{
+					"type": "origins:apply_effect",
+					"effect": {
+						"effect": "minecraft:slow_falling",
+						"duration": 5,
+						"show_particles": false,
+						"show_icon": true,
+						"is_ambient": true
+					}
+				},
+				{
+					"type": "origins:execute_command",
+					"command": "particle minecraft:totem_of_undying ~ ~ ~ 0.3 0 0.3 0 1 force @a"
+				}
+			]
+		}
+	},
+	"constant_attributes": {
+		"type": "origins:attribute",
+		"modifiers": [
+			{
+				"attribute": "minecraft:generic.attack_damage",
+				"operation": "multiply_total",
+				"value": -0.5
+			},
+			{
+				"attribute": "reach-entity-attributes:attack_range",
+				"operation": "multiply_total",
+				"value": -0.5
+			},
+			{
+				"attribute": "reach-entity-attributes:reach",
+				"operation": "multiply_total",
+				"value": -0.5
+			},
+			{
+				"attribute": "additionalentityattributes:lava_speed",
+				"operation": "multiply_total",
+				"value": 1.0
+			},
+			{
+				"attribute": "additionalentityattributes:lava_visibility",
+				"operation": "addition",
+				"value": 30
+			},
+			{
+				"attribute": "minecraft:generic.armor",
+				"operation": "multiply_total",
+				"value": -1
+			},
+			{
+				"attribute": "minecraft:generic.armor_toughness",
+				"operation": "multiply_total",
+				"value": -1
+			}
+		]
+	},
+	"rise_in_tiles": {
+		"type": "origins:active_self",
+		"cooldown": 0,
+		"hud_render": {
+			"should_render": false
+		},
+		"key": {
+			"key": "key.jump",
+			"continuous": true
+		},
+		"condition": {
+			"type": "origins:or",
+			"conditions": [
+				{
+					"type": "origins:in_block",
+                    "block_condition": {
+                        "type": "origins:block",
+                        "block": "minecraft:water"
+                    }
+				},
+				{
+					"type": "origins:in_block",
+					"block_condition": {
+						"type": "origins:movement_blocking"
+					}
+				}
+			]
+		},
+		"entity_action": {
+			"type": "origins:apply_effect",
+			"effect": {
+				"effect": "minecraft:levitation",
+				"duration": 2,
+				"amplifier": 8,
+				"show_particles": false,
+				"show_icon": false
+			}
+		}
+	},
+	"prevent_jump_in_tiles": {
+		"type": "origins:modify_jump",
+		"modifier": {
+			"operation": "multiply_total",
+			"value": -1
+		},
+		"condition": {
+			"type": "origins:or",
+			"conditions": [
+				{
+					"type": "origins:in_block",
+					"block_condition": {
+						"type": "origins:movement_blocking"
+					}
+				},
+                {
+					"type": "origins:in_block",
+                    "block_condition": {
+                        "type": "origins:block",
+                        "block": "minecraft:water"
+                    }
+				}
+			]
+		}
+	},
+	"feet_particles": {
+		"type": "origins:action_over_time",
+		"interval": 2,
+		"condition": {
+			"type": "origins:and",
+			"conditions": [
+				{
+					"type": "origins:moving"
+				},
+				{
+					"type": "origins:on_block"
+				}
+			]
+		},
+		"entity_action": {
+			"type": "origins:if_else",
+			"condition": {
+				"type": "origins:sprinting"
+			},
+			"if_action": {
+				"type": "origins:execute_command",
+				"command": "particle minecraft:totem_of_undying ~ ~0.1 ~ 0.3 0 0.3 0 3 force @a"
+			},
+			"else_action": {
+				"type": "origins:execute_command",
+				"command": "particle minecraft:totem_of_undying ~ ~0.1 ~ 0.3 0 0.3 0 1 force @a"
+			}
+		}
+	},
+	"body_particles": {
+		"type": "origins:action_over_time",
+		"interval": 13,
+		"entity_action": {
+			"type": "origins:execute_command",
+			"command": "execute at @s anchored eyes rotated ~ 0 positioned ~ ~0.7 ~ run particle minecraft:falling_dust vine ^ ^ ^-0.5 0.17 0.5 0.17 0.0001 3 force @a",
+			"permission_level": 4
+		}
+	},
+    "overlay": {
+		"type": "origins:overlay",
+		"draw_mode": "nausea",
+		"draw_phase": "below_hud",
+		"red": 0.3,
+		"blue": 0.3,
+		"strength": 0.5,
+		"texture": "minecraft:textures/misc/nausea.png",
+		"visible_in_third_person": true
+	},
+	"prevent_shield_use": {
+		"type": "origins:prevent_item_use",
+		"item_condition": {
+			"type": "origins:ingredient",
+			"ingredient": {
+				"item": "minecraft:shield"
+			}
+		}
+	},
+	"prevent_elytra": {
+		"type": "origins:prevent_elytra_flight"
+	},
+	"prevent_entity_collision": {
+		"type": "origins:prevent_entity_collision"
+	},
+	"prevent_sculk_sensors": {
+		"type": "origins:prevent_game_event"
+	},
+	"exit_when_damaged": {
+		"type": "origins:self_action_when_hit",
+		"entity_action": {
+			"type": "origins:and",
+			"actions": [
+                {
+                    "type": "origins:change_resource",
+                    "resource": "fused:ethereal_form_cooldown",
+                    "change": 3
+                },
+				{
+					"type": "origins:execute_command",
+					"command": "advancement grant @s only fused:ef_cancel"
+				},
+                {
+					"type": "origins:revoke_power",
+                    "power": "fused:ef_active",
+                    "source": "fused:ethereal_form"
+				}
+			]
+		}
+	}
+}

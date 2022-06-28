@@ -1,0 +1,26 @@
+{
+    "display": {
+        "title": {
+            "text": "Fused",
+            "color": "green",
+            "bold": true
+        },
+        "description": {
+            "text": "Become Fused, an undead husk possessed by an experience-hungry spirit that would rather you didn't wear too much armor.",
+            "color": "yellow"
+        },
+        "icon": {
+            "item": "minecraft:experience_bottle"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": false,
+        "hidden": false,
+        "background": "minecraft:textures/block/lime_concrete_powder.png"
+    },
+    "criteria": {
+        "no": {
+            "trigger": "minecraft:impossible"
+        }
+    }
+}

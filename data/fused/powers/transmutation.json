@@ -1,0 +1,127 @@
+{
+	"name": "§a§o§nTransmutation",
+	"description": "You can tap into your spirit's energy, allowing you to heal yourself 6 hearts by pressing §eSecondary§r.\nThis has a minute-long cooldown, but killing a mob will reduce it by 10 seconds.\n§a[This power is affected by Magic Energy; for each missing point of Magic Energy, the cooldown is increased by 5 seconds]",
+	"badges": [
+
+	],
+	"type": "origins:multiple",
+	"active": {
+		"type": "origins:active_self",
+		"key": "key.origins.secondary_active",
+		"entity_action": {
+			"type": "origins:and",
+			"actions": [
+				{
+					"type": "origins:if_else",
+					"condition": {
+						"type": "origins:resource",
+						"resource": "fused:transmutation_time_since",
+						"comparison": "<=",
+						"compare_to": 60
+					},
+					"if_action": {
+						"type": "origins:execute_command",
+						"command": "advancement grant @s only fused:transmutation_15sec"
+					}
+				},
+				{
+					"type": "origins:execute_command",
+					"command": "function fused:transmute"
+				},
+				{
+					"type": "origins:heal",
+					"amount": 6
+				},
+				{
+					"type": "origins:change_resource",
+					"resource": "fused:transmutation_cooldown",
+					"change": 240
+				},
+				{
+					"type": "origins:change_resource",
+					"resource": "fused:transmutation_time_since",
+					"change": 0,
+					"operation": "set"
+				}
+			]
+		},
+		"condition": {
+			"type": "origins:and",
+			"conditions": [
+				{
+					"type": "origins:relative_health",
+					"comparison": "<",
+					"compare_to": 1.0
+				},
+				{
+					"type": "origins:resource",
+					"resource": "fused:transmutation_cooldown",
+					"comparison": "==",
+					"compare_to": 0
+				},
+				{
+					"type": "origins:power",
+					"power": "fused:repossession_freeze",
+					"source": "fused:repossession",
+					"inverted": true
+				},
+				{
+					"type": "origins:power",
+					"power": "fused:repossession_active",
+					"inverted": true
+				}
+			]
+		},
+		"cooldown": 40,
+		"hud_render": {
+			"should_render": false
+		}
+	},
+	"cooldown": {
+		"type": "origins:resource",
+		"hidden": true,
+		"min": 0,
+		"max": 640,
+		"hud_render": {
+			"sprite_location": "fused:textures/gui/resource_bar.png",
+			"bar_index": 9,
+			"condition": {
+				"type": "origins:resource",
+				"resource": "fused:transmutation_cooldown",
+				"comparison": ">=",
+				"compare_to": 1
+			}
+		}
+	},
+	"time_since": {
+		"type": "origins:resource",
+		"min": 0,
+		"max": 61,
+		"start_value": 61
+	},
+	"cooldown_deplete": {
+		"type": "origins:action_over_time",
+		"interval": 5,
+		"entity_action": {
+			"type": "origins:and",
+			"actions": [
+				{
+					"type": "origins:change_resource",
+					"resource": "fused:transmutation_cooldown",
+					"change": -1
+				},
+				{
+					"type": "origins:change_resource",
+					"resource": "fused:transmutation_time_since",
+					"change": 1
+				}
+			]
+		},
+		"condition": {
+			"type": "origins:resource",
+			"resource": "fused:transmutation_cooldown",
+			"comparison": ">=",
+			"compare_to": 1
+		}
+	}
+}

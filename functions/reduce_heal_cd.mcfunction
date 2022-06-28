@@ -1,2 +1,0 @@
-title @s actionbar [{"text":"-10s Transmutation (secondary) cooldown","color":"gold","bold":true},{"text":" (Mob kill)","color":"green","bold":false}]
-playsound minecraft:entity.player.levelup master @s ~ ~ ~ 0.5 2

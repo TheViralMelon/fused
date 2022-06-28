@@ -1,0 +1,23 @@
+{
+    "display": {
+        "title": {
+            "text": "Self-Enchanted"
+        },
+        "description": {
+            "text": "Upgrade your Magic Energy by consuming a Lapis Lazuli Block."
+        },
+        "icon": {
+            "item": "minecraft:lapis_block"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "no": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "parent": "fused:root"
+}

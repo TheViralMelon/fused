@@ -1,0 +1,127 @@
+[
+    {
+        "function": "minecraft:set_nbt",
+        "tag": "{fusedCatalystCount:1}"
+    },
+    {
+        "function": "minecraft:set_nbt",
+        "tag": "{fusedSoulbound:1}"
+    },
+    {
+        "function": "apoli:add_power",
+        "power": "fused:soulbind_check",
+        "slot": "mainhand",
+        "hidden": true
+    },
+    {
+        "function": "apoli:add_power",
+        "power": "fused:soulbind_check",
+        "slot": "offhand",
+        "hidden": true
+    },
+    {
+        "function": "apoli:add_power",
+        "power": "fused:soulbind_check",
+        "slot": "head",
+        "hidden": true
+    },
+    {
+        "function": "apoli:add_power",
+        "power": "fused:soulbind_check",
+        "slot": "chest",
+        "hidden": true
+    },
+    {
+        "function": "apoli:add_power",
+        "power": "fused:soulbind_check",
+        "slot": "legs",
+        "hidden": true
+    },
+    {
+        "function": "apoli:add_power",
+        "power": "fused:soulbind_check",
+        "slot": "feet",
+        "hidden": true
+    },
+    {
+        "function": "minecraft:set_nbt",
+        "tag": "{fusedUUID:[0,0,0,0]}"
+    },
+    {
+        "function": "minecraft:copy_nbt",
+        "source": {
+            "type": "minecraft:storage",
+            "source": "fused:uuid"
+        },
+        "ops": [
+            {
+                "source": "UUID0",
+                "target": "fusedUUID[0]",
+                "op": "replace"
+            }
+        ]
+    },
+    {
+        "function": "minecraft:copy_nbt",
+        "source": {
+            "type": "minecraft:storage",
+            "source": "fused:uuid"
+        },
+        "ops": [
+            {
+                "source": "UUID1",
+                "target": "fusedUUID[1]",
+                "op": "replace"
+            }
+        ]
+    },
+    {
+        "function": "minecraft:copy_nbt",
+        "source": {
+            "type": "minecraft:storage",
+            "source": "fused:uuid"
+        },
+        "ops": [
+            {
+                "source": "UUID2",
+                "target": "fusedUUID[2]",
+                "op": "replace"
+            }
+        ]
+    },
+    {
+        "function": "minecraft:copy_nbt",
+        "source": {
+            "type": "minecraft:storage",
+            "source": "fused:uuid"
+        },
+        "ops": [
+            {
+                "source": "UUID3",
+                "target": "fusedUUID[3]",
+                "op": "replace"
+            }
+        ]
+    },
+    {
+        "function": "minecraft:set_lore",
+        "lore": [
+            {
+                "text": "This item is soulbound,",
+                "color": "green",
+                "italic": false
+            },
+            {
+                "text": "and can't be used by",
+                "color": "green",
+                "italic": false
+            },
+            {
+                "text": "anyone but its owner!",
+                "color": "green",
+                "italic": false
+            }
+        ],
+        "replace": false
+    }
+]

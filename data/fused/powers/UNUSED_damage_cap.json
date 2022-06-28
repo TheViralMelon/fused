@@ -1,0 +1,72 @@
+{
+    "type": "origins:multiple",
+    "dot": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 1000
+    },
+    "callback": {
+        "type": "origins:action_on_callback",
+        "entity_action_gained": {
+            "type": "origins:execute_command",
+            "command": "title @s actionbar {\"text\": \"Damage cap exceeded! Excessive damage converted to damage over time!\",\"color\":\"gold\",\"bold\":true}"
+        }
+    },
+    "decrement": {
+        "type": "origins:action_over_time",
+        "interval": 8,
+        "entity_action": {
+            "type": "origins:if_else",
+            "condition": {
+                "type": "origins:and",
+                "conditions": [
+                    {
+                        "type": "origins:health",
+                        "comparison": ">",
+                        "compare_to": 1
+                    },
+                    {
+                        "type": "origins:resource",
+                        "resource": "fused:damage_cap_dot",
+                        "comparison": ">=",
+                        "compare_to": 1
+                    }
+                ]
+            },
+            "if_action": {
+                "type": "origins:and",
+                "actions": [
+                    {
+                        "type": "origins:execute_command",
+                        "command": "function fused:wither"
+                    },
+                    {
+                        "type": "origins:change_resource",
+                        "resource": "fused:damage_cap_dot",
+                        "change": -1
+                    },
+                    {
+                        "type": "origins:heal",
+                        "amount": -1
+                    }
+                ]
+            },
+            "else_action": {
+                "type": "origins:revoke_power",
+                "power": "fused:damage_cap",
+                "source": "fused:animated"
+            }
+        }
+    },
+    "replace_status_bar": {
+		"type": "origins:status_bar_texture",
+		"texture": "fused:textures/gui/animated.png"
+	},
+    "rally": {
+        "type": "origins:self_action_on_hit",
+        "entity_action": {
+            "type": "origins:execute_command",
+            "command": "tellraw @s {\"score\":{\"objective\":\"fusedDmg\",\"name\":\"@s\"}}"
+        }
+    }
+}

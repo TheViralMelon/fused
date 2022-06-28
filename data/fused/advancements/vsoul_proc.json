@@ -1,0 +1,23 @@
+{
+    "display": {
+        "title": {
+            "text": "My Powers! They're Gone!"
+        },
+        "description": {
+            "text": "Experience the Magic Energy-crippling sensation of touching solid, pure iron."
+        },
+        "icon": {
+            "item": "minecraft:iron_ingot"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "no": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "parent": "fused:root"
+}

@@ -1,0 +1,13 @@
+[
+    {
+        "function": "minecraft:set_enchantments",
+        "enchantments": {
+            "minecraft:mending": 1
+        },
+        "add": false
+    },
+    {
+        "function": "set_nbt",
+        "tag": "{fusedMending:1}"
+    }
+]

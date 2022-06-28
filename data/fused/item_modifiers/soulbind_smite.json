@@ -1,0 +1,13 @@
+[
+    {
+        "function": "minecraft:set_enchantments",
+        "enchantments": {
+            "minecraft:smite": 1
+        },
+        "add": true
+    },
+    {
+        "function": "minecraft:set_nbt",
+        "tag": "{fusedSoulboundSmite:1b}"
+    }
+]

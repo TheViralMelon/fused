@@ -1,0 +1,13 @@
+[
+    {
+        "function": "minecraft:set_enchantments",
+        "enchantments": {
+            "minecraft:frost_walker": 1
+        },
+        "add": true
+    },
+    {
+        "function": "minecraft:set_nbt",
+        "tag": "{fusedSoulboundFrostWalker:1b}"
+    }
+]

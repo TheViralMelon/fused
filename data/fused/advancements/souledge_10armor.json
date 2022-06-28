@@ -1,0 +1,28 @@
+{
+    "display": {
+        "title": {
+            "text": "Nice Armor...",
+            "color": "light_purple"
+        },
+        "description": {
+            "text": "Gain ten points of armor in one hit with Soul Edge. If you're not on a server, I apoligze in advance.",
+            "color": "yellow"
+        },
+        "icon": {
+            "item": "minecraft:diamond_chestplate"
+        },
+        "frame": "challenge",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "no": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "rewards": {
+        "experience": 450
+    },
+    "parent": "fused:souledge_armorsteal"
+}

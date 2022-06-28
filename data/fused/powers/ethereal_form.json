@@ -1,0 +1,184 @@
+{
+	"type": "origins:multiple",
+	"name": "§a§o§nEthereal Form",
+	"description": "Press §ePrimary§r to be released from your body, making you more agile than any mortal, immune to many environmental effects, and able to pass through solid terrain. This will last for up to 10 seconds, but can be cancelled by pressing §ePrimary§r again; the subsequent cooldown will be twice as long as the time spent in §aEthereal Form§r.\nWithout your body, though, your range and damage are reduced by 50%, and any armor points are negated.\nHold §eJump§r while in a block to rise rapidly, or §eSneak§r to fall rapidly; hold §eJump§r midair to gain slow falling.\nBeing hit while this effect is active will cause you to return to your normal form, and the cooldown will be 1.5 seconds longer.\n§a[This power is affected by Magic Energy; for every missing point of Magic Energy, the maximum duration of this effect is decreased by 0.5 seconds and the cooldown is increased by a static 0.5 seconds]",
+	"badges": [
+		{
+			"sprite": "minecraft:textures/particle/heart.png",
+			"text": "§aSoul Edge§r's lifesteal effect will heal as if your attacks did 35% higher damage while §aEthereal Form§r is active (35% more compared to normal -- this  adjusts for §aEthereal Form§r's damage reduction)."
+		},
+		{
+			"sprite": "minecraft:textures/item/book.png",
+			"text": "Full effects: doubled velocity, invisibility, immunity to fall damage, fire and arrows, +50% movement speed while sprinting, full movement in water and full movement and visibility in lava, and the ability to pass through blocks. While this effect is active, you are unable to fly with §eElytra§r or block with a §eShield§r, and will not create vibrations."
+		},
+		{
+			"sprite": "minecraft:textures/particle/glint.png",
+			"text": "While this effect is active, you will emit particles. Additionally, after exiting §aEthereal Form§r, you will be immune to fall damage until you touch the ground."
+		}
+	],
+	"activate": {
+		"type": "origins:active_self",
+		"cooldown": 0,
+		"hud_render": {
+			"should_render": false
+		},
+		"condition": {
+			"type": "origins:and",
+			"conditions": [
+				{
+					"type": "origins:resource",
+					"resource": "fused:ethereal_form_cooldown",
+					"comparison": "==",
+					"compare_to": 0
+				},
+				{
+					"type": "origins:power",
+					"power": "fused:repossession_active",
+					"source": "fused:repossession",
+					"inverted": true
+				},
+				{
+					"type": "origins:power",
+					"power": "fused:repossession_freeze",
+					"inverted": true
+				}
+			]
+		},
+		"entity_action": {
+			"type": "origins:if_else_list",
+			"actions": [
+				{
+					"condition": {
+						"type": "origins:power",
+						"power": "fused:vsoul_active"
+					},
+					"action": {
+						"type": "origins:and",
+						"actions": [
+							{
+								"type": "origins:execute_command",
+								"command": "title @s actionbar {\"text\":\"E. Form blocked due to touching iron!\",\"color\":\"red\",\"bold\":true}"
+							},
+							{
+								"type": "origins:execute_command",
+								"command": "playsound minecraft:entity.blaze.hurt master @s ~ ~ ~ 1 1.5"
+							}
+						]
+					}
+				},
+				{
+					"condition": {
+						"type": "origins:resource",
+						"resource": "fused:magic_energy",
+						"comparison": "==",
+						"compare_to": 0
+					},
+					"action": {
+						"type": "origins:and",
+						"actions": [
+							{
+								"type": "origins:execute_command",
+								"command": "title @s actionbar {\"text\":\"Your Magic Energy is too low to activate E. Form!\",\"color\":\"red\",\"bold\":true}"
+							},
+							{
+								"type": "origins:execute_command",
+								"command": "playsound minecraft:entity.blaze.hurt master @s ~ ~ ~ 1 1.5"
+							}
+						]
+					}
+				},
+				{
+					"condition": {
+						"type": "origins:constant",
+						"value": true
+					},
+					"action": {
+						"type": "origins:grant_power",
+						"power": "fused:ef_active",
+						"source": "fused:ethereal_form"
+					}
+				}
+			]
+		}
+	},
+	"cooldown": {
+		"type": "origins:resource",
+		"min": 0,
+		"max": 83,
+		"hud_render": {
+			"sprite_location": "fused:textures/gui/resource_bar.png",
+			"bar_index": 10,
+			"condition": {
+				"type": "origins:power",
+				"power": "fused:ef_active",
+				"inverted": true
+			}
+		}
+	},
+	"fall": {
+		"type": "origins:resource",
+		"min": 0,
+		"max": 1
+	},
+	"decrement": {
+		"type": "origins:action_over_time",
+		"interval": 5,
+		"entity_action": {
+			"type": "origins:change_resource",
+			"resource": "fused:ethereal_form_cooldown",
+			"change": -1
+		},
+		"condition": {
+			"type": "origins:and",
+			"conditions": [
+				{
+					"type": "origins:resource",
+					"resource": "fused:ethereal_form_cooldown",
+					"comparison": ">=",
+					"compare_to": 1
+				},
+				{
+					"type": "origins:power",
+					"power": "fused:ef_active",
+					"inverted": true
+				}
+			]
+		}
+	},
+	"fall_block": {
+		"type": "origins:invulnerability",
+		"damage_condition": {
+			"type": "origins:name",
+			"name": "fall"
+		},
+		"condition": {
+			"type": "origins:resource",
+			"resource": "ethereal_form_fall",
+			"comparison": "==",
+			"compare_to": 1
+		}
+	},
+	"fall_block_remove": {
+		"type": "origins:action_on_land",
+		"entity_action": {
+			"type": "origins:delay",
+			"ticks": 1,
+			"action": {
+				"type": "origins:change_resource",
+				"resource": "ethereal_form_fall",
+				"change": -1
+			}
+		},
+		"condition": {
+			"type": "origins:resource",
+			"resource": "ethereal_form_fall",
+			"comparison": "==",
+			"compare_to": 1
+		}
+	},
+	"buffer": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 39
+    }
+}

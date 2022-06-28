@@ -1,0 +1,29 @@
+{
+    "display": {
+        "title": {
+            "text": "Recovery Complete",
+            "color": "light_purple"
+        },
+        "description": {
+            "text": "Restore five hearts in one attack with Soul Edge. Maybe you should cut down on the life juice a little...",
+            "color": "yellow"
+        },
+        "icon": {
+            "item": "minecraft:potion",
+            "nbt": "{Potion:\"minecraft:strong_harming\"}"
+        },
+        "frame": "challenge",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "no": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "rewards": {
+        "experience": 150
+    },
+    "parent": "fused:ef_lifesteal"
+}

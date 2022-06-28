@@ -1,0 +1,114 @@
+{
+	"type": "origins:multiple",
+	"name": "§a§o§nAnimated",
+	"description": "Your spirit part is resiliant, and stops incoming hits from inflicting damage greater than 50% of your maximum health in a single hit.\nYour soul will cause your body to glow when it feels the claustrophobia of being inside a solid block, unless in its §aEthereal Form§r.",
+	"badges": [
+	],
+	"when_hit": {
+		"type": "origins:self_action_when_hit",
+		"cooldown": 5,
+		"entity_action": {
+			"type": "origins:and",
+			"actions": [
+				{
+					"type": "origins:execute_command",
+					"command": "execute store result score @s fusedMeCounter run data get entity @s Health"
+				},
+				{
+					"type": "origins:execute_command",
+					"command": "scoreboard players operation @s fusedMeTransfer = @s fusedHealth"
+				},
+				{
+					"type": "origins:execute_command",
+					"command": "scoreboard players operation @s fusedMeTransfer -= @s fusedDamageCap"
+				},
+				{
+					"type": "origins:if_else",
+					"condition": {
+						"type": "origins:command",
+						"command": "execute if score @s fusedMeTransfer > @s fusedMeCounter",
+						"comparison": "==",
+						"compare_to": 1
+					},
+					"if_action": {
+						"type": "origins:grant_power",
+						"power": "fused:damage_cap_loop",
+						"source": "fused:animated"
+					}
+				},
+				{
+					"type": "origins:execute_command",
+					"command": "scoreboard players set @s fusedMeCounter 0"
+				},
+				{
+					"type": "origins:execute_command",
+					"command": "scoreboard players set @s fusedMeTransfer 0"
+				}
+			]
+		}
+	},
+	"prevent_death": {
+		"type": "origins:prevent_death",
+		"loading_priority": 1,
+		"condition": {
+			"type": "origins:command",
+			"command": "execute if score @s fusedHealth > @s fusedDamageCap",
+			"comparison": "==",
+			"compare_to": 1
+		}
+	},
+	"glowing_in_block": {
+		"type": "origins:self_glow",
+		"condition": {
+			"type": "origins:and",
+			"conditions": [
+				{
+					"type": "origins:power",
+					"power": "fused:ef_active",
+					"source": "fused:ethereal_form",
+					"inverted": true
+				},
+				{
+					"type": "origins:in_block",
+					"block_condition": {
+						"type": "origins:and",
+						"conditions": [
+							{
+								"type": "origins:offset",
+								"y": 1,
+								"condition": {
+									"type": "origins:movement_blocking"
+								}
+							},
+							{
+								"type": "origins:in_tag",
+								"tag": "minecraft:doors",
+								"inverted": true
+							}
+						]
+					}
+				},
+				{
+					"type": "origins:in_block",
+					"block_condition": {
+						"type": "origins:and",
+						"conditions": [
+							{
+								"type": "origins:movement_blocking"
+							},
+							{
+								"type": "origins:in_tag",
+								"tag": "minecraft:doors",
+								"inverted": true
+							}
+						]
+					}
+				}
+			]
+		},
+		"use_teams": false,
+		"red": 0.3,
+		"blue": 0.3,
+		"green": 1.0
+	}
+}

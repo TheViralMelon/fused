@@ -1,0 +1,26 @@
+{
+    "display": {
+        "title": {
+            "text": "Unburdened",
+            "color": "yellow"
+        },
+        "description": {
+            "text": "Reach 20 Magic Energy. Let's hope nobody sneezes on you too hard.",
+            "color": "light_purple"
+        },
+        "icon": {
+            "item": "minecraft:ender_eye",
+            "nbt": "{Enchantments:[{id:\"minecraft:bane_of_arthropods\",lvl:1}]}"
+        },
+        "frame": "goal",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "no": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "parent": "fused:upgrade_lapis"
+}

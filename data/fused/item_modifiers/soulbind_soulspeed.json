@@ -1,0 +1,13 @@
+[
+    {
+        "function": "minecraft:set_enchantments",
+        "enchantments": {
+            "minecraft:soul_speed": 1
+        },
+        "add": true
+    },
+    {
+        "function": "minecraft:set_nbt",
+        "tag": "{fusedSoulboundSoulSpeed:1b}"
+    }
+]

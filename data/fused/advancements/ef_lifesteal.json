@@ -1,0 +1,23 @@
+{
+    "display": {
+        "title": {
+            "text": "Delicious..."
+        },
+        "description": {
+            "text": "Use Ethereal Form to get bonus healing from Soul Edge's lifesteal."
+        },
+        "icon": {
+            "item": "minecraft:glistering_melon_slice"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "no": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "parent": "fused:souledge_armorsteal"
+}

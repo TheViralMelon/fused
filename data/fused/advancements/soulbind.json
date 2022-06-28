@@ -1,0 +1,23 @@
+{
+    "display": {
+        "title": {
+            "text": "Even Further Beyond!"
+        },
+        "description": {
+            "text": "Soulbind an item with a catalyst and 15 experience levels to increase its enchantments beyond their usual limits."
+        },
+        "icon": {
+            "item": "minecraft:enchanted_book"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "no": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "parent": "fused:root"
+}

@@ -1,0 +1,28 @@
+{
+    "display": {
+        "title": {
+            "text": "Blood is Fuel",
+            "color": "light_purple"
+        },
+        "description": {
+            "text": "Activate Transmutation twice within 15 seconds by killing mobs to reduce its cooldown.",
+            "color": "yellow"
+        },
+        "icon": {
+            "item": "minecraft:honey_bottle"
+        },
+        "frame": "challenge",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "no": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "rewards": {
+        "experience": 350
+    },
+    "parent": "fused:root"
+}

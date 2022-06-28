@@ -1,0 +1,25 @@
+{
+    "display": {
+        "title": {
+            "text": "Minmaxed",
+            "color": "yellow"
+        },
+        "description": {
+            "text": "Soulbind a single item with as many catalysts as possible (hint: it's two).",
+            "color": "light_purple"
+        },
+        "icon": {
+            "item": "minecraft:enchanting_table"
+        },
+        "frame": "goal",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "no": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "parent": "fused:soulbind"
+}

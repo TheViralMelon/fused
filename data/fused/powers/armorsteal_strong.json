@@ -1,0 +1,127 @@
+{
+    "type": "origins:multiple",
+    "attribute": {
+        "type": "origins:attribute",
+        "modifiers": [
+            {
+                "attribute": "minecraft:generic.armor",
+                "operation": "multiply_total",
+                "value": -0.5
+            },
+            {
+                "attribute": "minecraft:generic.armor_toughness",
+                "operation": "multiply_total",
+                "value": -0.5
+            }
+        ]
+    },
+    "power": {
+        "type": "origins:resource",
+        "min": 13,
+        "max": 22,
+        "hud_render": {
+            "should_render": false
+        }
+    },
+    "callback": {
+        "type": "origins:action_on_callback",
+        "entity_action_added": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:execute_command",
+                    "command": "resource operation @s fused:armorsteal_strong_power = @s fusedMeTransfer"
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "scoreboard players set @s fusedMeTransfer 0"
+                }
+            ]
+        }
+    },
+    "unweildy": {
+        "type": "origins:prevent_item_use",
+        "item_condition": {
+            "type": "origins:ingredient",
+            "ingredient": {
+                "item": "minecraft:shield"
+            }
+        }
+    },
+    "overlay": {
+        "type": "origins:overlay",
+        "draw_mode": "nausea",
+        "red": 0.5,
+        "green": 1.0,
+        "blue": 0.0,
+        "draw_phase": "below_hud",
+        "strength": 1,
+        "texture": "minecraft:textures/misc/powder_snow_outline.png",
+        "visible_in_third_person": true
+    },
+    "particle1": {
+        "type": "origins:particle",
+        "frequency": 1,
+        "visible_in_first_person": false,
+        "particle": "minecraft:scrape"
+    },
+    "particle2": {
+        "type": "origins:particle",
+        "frequency": 3,
+        "visible_in_first_person": false,
+        "particle": "minecraft:large_smoke"
+    },
+    "glowing": {
+        "type": "origins:self_glow",
+        "use_teams": false,
+        "red": 0.0,
+        "green": 1.0,
+        "blue": 0.0
+    },
+    "shaking": {
+        "type": "origins:shaking"
+    },
+    "duration": {
+        "type": "origins:action_over_time",
+        "interval": 5,
+        "entity_action": {
+            "type": "origins:if_else_list",
+            "actions": [
+                {
+                    "condition": {
+                        "type": "origins:resource",
+                        "resource": "fused:armorsteal_strong_power",
+                        "comparison": ">=",
+                        "compare_to": 14
+                    },
+                    "action": {
+                        "type": "origins:change_resource",
+                        "resource": "fused:armorsteal_strong_power",
+                        "change": -1
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "origins:resource",
+                        "resource": "fused:armorsteal_strong_power",
+                        "comparison": "<=",
+                        "compare_to": 13
+                    },
+                    "action": {
+                        "type": "origins:revoke_power",
+                        "power": "fused:armorsteal_strong",
+                        "source": "fused:hit_10"
+                    }
+                }
+            ]
+        }
+    },
+    "speed": {
+        "type": "origins:attribute",
+        "modifier": {
+            "attribute": "minecraft:generic.movement_speed",
+            "operation": "multiply_total",
+            "value": -0.2
+        }
+    }
+}

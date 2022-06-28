@@ -1,0 +1,23 @@
+{
+    "display": {
+        "title": {
+            "text": "Rather Excessive"
+        },
+        "description": {
+            "text": "Be dealt more than half your maximum health in one hit...but not if your spirit half has anything to say about it."
+        },
+        "icon": {
+            "item": "minecraft:shield"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "no": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "parent": "fused:root"
+}

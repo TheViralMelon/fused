@@ -1,0 +1,145 @@
+{
+	"type": "origins:action_on_callback",
+	"hidden": true,
+	"entity_action_respawned": {
+		"type": "origins:and",
+		"actions": [
+			{
+				"type": "origins:revoke_power",
+				"power": "fused:ef_active",
+				"source": "fused:ethereal_form"
+			},
+			{
+				"type": "origins:change_resource",
+				"resource": "fused:ethereal_form_cooldown",
+				"change": 0,
+				"operation": "set"
+			},
+			{
+				"type": "origins:change_resource",
+				"resource": "fused:transmutation_cooldown",
+				"change": 0,
+				"operation": "set"
+			},
+			{
+				"type": "origins:change_resource",
+				"resource": "ethereal_form_fall",
+				"change": 0,
+				"operation": "set"
+			},
+			{
+				"type": "origins:change_resource",
+				"resource": "fused:repossession_cost",
+				"change": 0,
+				"operation": "set"
+			},
+			{
+				"type": "origins:change_resource",
+				"resource": "fused:repossession_cooldown",
+				"change": 0,
+				"operation": "set"
+			}
+		]
+	},
+	"entity_action_chosen": {
+		"type": "origins:and",
+		"actions": [
+			{
+				"type": "origins:feed",
+				"food": 20,
+				"saturation": 20
+			},
+			{
+				"type": "origins:execute_command",
+				"command": "function fused:init"
+			},
+			{
+				"type": "origins:execute_command",
+				"command": "tag @s add fusedSeenWarning"
+			}
+		]
+	},
+	"entity_action_added": {
+		"type": "origins:and",
+		"actions": [
+			{
+				"type": "origins:if_else",
+				"condition": {
+					"type": "origins:nbt",
+					"nbt": "{Tags:[\"fusedAscended\"]}"
+				},
+				"if_action": {
+					"type": "origins:and",
+					"actions": [
+						{
+							"type": "origins:execute_command",
+							"command": "tag @s remove fusedAscended"
+						},
+						{
+							"type": "origins:execute_command",
+							"command": "give @s nether_star"
+						}
+					]
+				}
+			},
+			{
+				"type": "origins:if_else",
+				"condition": {
+					"type": "origins:nbt",
+					"nbt": "{Tags:[\"fusedBlock\"]}"
+				},
+				"if_action": {
+					"type": "origins:execute_command",
+					"command": "advancement grant @s only fused:upgrade_lapis"
+				}
+			}
+		]
+	},
+	"entity_action_lost": {
+		"type": "origins:and",
+		"actions": [
+			{
+				"type": "origins:execute_command",
+				"command": "tag @s remove fusedFused"
+			},
+			{
+				"type": "origins:execute_command",
+				"command": "tag @s remove fusedSeenWarning"
+			},
+			{
+				"type": "origins:execute_command",
+				"command": "tag @s remove fusedInsomniaReset"
+			},
+			{
+				"type": "origins:revoke_power",
+				"power": "fused:armor_25",
+				"source": "hit_5"
+			},
+			{
+				"type": "origins:revoke_power",
+				"power": "fused:armor_50",
+				"source": "hit_10"
+			},
+			{
+				"type": "origins:revoke_power",
+				"power": "fused:repossession_freeze",
+				"source": "fused:repossession"
+			},
+			{
+				"type": "origins:revoke_power",
+				"power": "fused:repossession_active",
+				"source": "fused:repossession"
+			},
+			{
+				"type": "origins:revoke_power",
+				"power": "fused:ef_active",
+				"source": "fused:ethereal_form"
+			},
+			{
+				"type": "origins:revoke_power",
+				"power": "fused:vsoul_active",
+				"source": "fused:vulnerable_soul"
+			}
+		]
+	}
+}

@@ -1,0 +1,28 @@
+{
+    "display": {
+        "title": {
+            "text": "it's time to stop"
+        },
+        "description": {
+            "text": "A useless catalyst for a useless enchantment..."
+        },
+        "icon": {
+            "item": "minecraft:spider_eye"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": false,
+        "hidden": true
+    },
+    "criteria": {
+        "no": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "rewards": {
+        "recipes": [
+            "fused:funny"
+        ]
+    },
+    "parent": "fused:soulbind"
+}

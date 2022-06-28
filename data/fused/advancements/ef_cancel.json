@@ -1,0 +1,23 @@
+{
+    "display": {
+        "title": {
+            "text": "Snap Back to Reality"
+        },
+        "description": {
+            "text": "Have your plans foiled by a pesky foe hitting you while you're in your Ethereal Form."
+        },
+        "icon": {
+            "item": "minecraft:tripwire_hook"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "no": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "parent": "fused:root"
+}

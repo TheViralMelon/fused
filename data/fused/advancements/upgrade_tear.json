@@ -1,0 +1,23 @@
+{
+    "display": {
+        "title": {
+            "text": "I Don't 'Do' Regeneration"
+        },
+        "description": {
+            "text": "Upgrade your Magic Energy by consuming a Ghast Tear."
+        },
+        "icon": {
+            "item": "minecraft:ghast_tear"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "no": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "parent": "fused:upgrade_heart"
+}

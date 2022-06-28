@@ -1,0 +1,199 @@
+{
+    "type": "origins:multiple",
+    "increment": {
+        "type": "origins:action_over_time",
+        "interval": 10,
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:execute_command",
+                    "command": "title @s title {\"text\":\"Respawning...\"}"
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "function fused:repossession_calculate"
+                },
+                {
+                    "type": "origins:if_else",
+                    "condition": {
+                        "type": "origins:command",
+                        "command": "execute if score @s fusedMeTransfer < @s fusedMeCounter",
+                        "comparison": ">=",
+                        "compare_to": 1
+                    },
+                    "if_action": {
+                        "type": "origins:heal",
+                        "amount": 2
+                    },
+                    "else_action": {
+                        "type": "origins:grant_power",
+                        "power": "fused:repossession_freeze",
+                        "source": "fused:repossession"
+                    }
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "scoreboard players set @s fusedMeCounter 0"
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "scoreboard players set @s fusedMeTransfer 0"
+                }
+            ]
+        }
+    },
+	"phasing": {
+		"type": "origins:phasing",
+		"blacklist": true,
+		"render_type": "blindness",
+		"view_distance": 300,
+		"block_condition": {
+			"type": "origins:or",
+			"conditions": [
+				{
+					"type": "origins:in_tag",
+					"tag": "fused:fused_solid_iron"
+				},
+				{
+					"type": "origins:in_tag",
+					"tag": "origins:unphasable"
+				},
+				{
+					"type": "origins:block",
+					"block": "minecraft:nether_portal"
+				},
+				{
+					"type": "origins:block",
+					"block": "minecraft:end_portal"
+				},
+				{
+					"type": "origins:block",
+					"block": "minecraft:end_gateway"
+				}
+			]
+		},
+		"phase_down_condition": {
+			"type": "origins:sneaking"
+		}
+    },
+    "rise_in_tiles": {
+		"type": "origins:active_self",
+		"cooldown": 0,
+		"hud_render": {
+			"should_render": false
+		},
+		"key": {
+			"key": "key.jump",
+			"continuous": true
+		},
+		"condition": {
+			"type": "origins:or",
+            "conditions": [
+				{
+					"type": "origins:in_block",
+					"block_condition": {
+						"type": "origins:movement_blocking"
+					}
+				},
+                {
+                    "type": "origins:in_block",
+                    "block_condition": {
+                        "type": "origins:block",
+                        "block": "minecraft:water"
+					}
+                }
+			]
+		},
+		"entity_action": {
+			"type": "origins:apply_effect",
+			"effect": {
+				"effect": "minecraft:levitation",
+				"duration": 2,
+				"amplifier": 4,
+				"show_particles": false,
+				"show_icon": false
+			}
+		}
+	},
+	"prevent_jump_in_tiles": {
+		"type": "origins:modify_jump",
+		"modifier": {
+			"operation": "multiply_total_multiplicative",
+			"value": -1
+		},
+		"condition": {
+			"type": "origins:in_block",
+			"block_condition": {
+				"type": "origins:movement_blocking"
+            }
+		}
+	},
+    "invulnerability": {
+        "type": "origins:invulnerability",
+        "damage_condition": {
+            "type": "origins:constant",
+            "value": true
+        }
+    },
+    "invisbility": {
+        "type": "origins:invisibility",
+        "render_armor": "false"
+    },
+    "fire_immunity": {
+        "type": "origins:fire_immunity"
+    },
+    "overlay": {
+		"type": "origins:overlay",
+		"draw_mode": "nausea",
+		"draw_phase": "below_hud",
+		"red": 0.7,
+		"green": 0.0,
+		"blue": 0,
+		"strength": 0.5,
+		"texture": "minecraft:textures/misc/nausea.png",
+		"visible_in_third_person": true
+    },
+    "prevent_item_use": {
+		"type": "origins:prevent_item_use"
+	},
+	"damage_dealt": {
+		"type": "origins:modify_damage_dealt",
+		"modifier": {
+			"operation": "multiply_total_multiplicative",
+			"value": -1
+		}
+	},
+	"break_speed": {
+		"type": "origins:modify_break_speed",
+		"modifier": {
+			"operation": "multiply_total_multiplicative",
+			"value": -1
+		}
+	},
+    "entity_collision": {
+        "type": "origins:prevent_entity_collision"
+    },
+    "prevent_elytra": {
+		"type": "origins:prevent_elytra_flight"
+	},
+    "speeb": {
+        "type": "origins:conditioned_attribute",
+        "ticks": 10,
+		"modifiers": [
+            {
+                "attribute": "additionalentityattributes:lava_speed",
+                "operation": "multiply_base",
+                "value": 1.0
+            },
+            {
+                "attribute": "additionalentityattributes:lava_visibility",
+                "operation": "addition",
+                "value": 30
+            }
+        ]
+    },
+    "prevent_sculk_sensors": {
+		"type": "origins:prevent_game_event"
+	}
+}

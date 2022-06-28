@@ -1,0 +1,314 @@
+{
+    "type": "origins:multiple",
+    "name": "§d§l§nActive Abilities:§r",
+    "description": " ",
+    "badges": [
+    ],
+    "tear": {
+        "type": "origins:active_self",
+        "cooldown": 1,
+        "hud_render": {
+            "should_render": false
+        },
+        "key": {
+            "key": "key.use"
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:execute_command",
+                    "command": "function fused:me_upgrade"
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "tag @s add fusedTear"
+                },
+                {
+                    "type": "origins:equipped_item_action",
+                    "equipment_slot": "mainhand",
+                    "action": {
+                        "type": "origins:consume",
+                        "amount": 1
+                    }
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "advancement grant @s only fused:upgrade_tear"
+                }
+            ]
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:nbt",
+                    "nbt": "{Tags:[\"fusedTear\"]}",
+                    "inverted": true
+                },
+                {
+                    "type": "origins:equipped_item",
+                    "equipment_slot": "mainhand",
+                    "item_condition": {
+                        "type": "origins:ingredient",
+                        "ingredient": {
+                            "item": "minecraft:ghast_tear"
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    "heart": {
+        "type": "origins:active_self",
+        "cooldown": 1,
+        "hud_render": {
+            "should_render": false
+        },
+        "key": {
+            "key": "key.use"
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:execute_command",
+                    "command": "function fused:me_upgrade"
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "tag @s add fusedHeart"
+                },
+                {
+                    "type": "origins:equipped_item_action",
+                    "equipment_slot": "mainhand",
+                    "action": {
+                        "type": "origins:consume",
+                        "amount": 1
+                    }
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "advancement grant @s only fused:upgrade_heart"
+                }
+            ]
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:nbt",
+                    "nbt": "{Tags:[\"fusedHeart\"]}",
+                    "inverted": true
+                },
+                {
+                    "type": "origins:equipped_item",
+                    "equipment_slot": "mainhand",
+                    "item_condition": {
+                        "type": "origins:ingredient",
+                        "ingredient": {
+                            "item": "minecraft:heart_of_the_sea"
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    "block": {
+        "type": "origins:active_self",
+        "cooldown": 1,
+        "hud_render": {
+            "should_render": false
+        },
+        "key": {
+            "key": "key.use"
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:execute_command",
+                    "command": "function fused:me_upgrade"
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "tag @s add fusedBlock"
+                },
+                {
+                    "type": "origins:equipped_item_action",
+                    "equipment_slot": "mainhand",
+                    "action": {
+                        "type": "origins:consume",
+                        "amount": 1
+                    }
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "advancement grant @s only fused:upgrade_lapis"
+                }
+            ]
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:nbt",
+                    "nbt": "{Tags:[\"fusedBlock\"]}",
+                    "inverted": true
+                },
+                {
+                    "type": "origins:equipped_item",
+                    "equipment_slot": "mainhand",
+                    "item_condition": {
+                        "type": "origins:ingredient",
+                        "ingredient": {
+                            "item": "minecraft:lapis_block"
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    "tooltip_block": {
+        "type": "origins:tooltip",
+        "item_condition": {
+            "type": "origins:ingredient",
+            "ingredient": {
+                "item": "minecraft:lapis_block"
+            }
+        },
+        "texts": [
+			{
+				"text": "Using this item will permanently",
+				"color": "gray"
+			},
+			{
+				"translate": "%1$s %2$s",
+				"with": [
+					{
+						"text": "increase your",
+						"color": "gray"
+					},
+					{
+						"text": "Magic Energy!",
+						"color": "green"
+					}
+				]
+			}
+		],
+        "condition": {
+            "type": "origins:nbt",
+            "nbt": "{Tags:[\"fusedBlock\"]}",
+            "inverted": true
+        }
+    },
+    "tooltip_tear": {
+        "type": "origins:tooltip",
+        "item_condition": {
+            "type": "origins:ingredient",
+            "ingredient": {
+                "item": "minecraft:ghast_tear"
+            }
+        },
+        "texts": [
+			{
+				"text": "Using this item will permanently",
+				"color": "gray"
+			},
+			{
+				"translate": "%1$s %2$s",
+				"with": [
+					{
+						"text": "increase your",
+						"color": "gray"
+					},
+					{
+						"text": "Magic Energy!",
+						"color": "green"
+					}
+				]
+			}
+		],
+        "condition": {
+            "type": "origins:nbt",
+            "nbt": "{Tags:[\"fusedTear\"]}",
+            "inverted": true
+        }
+    },
+    "tooltip_heart": {
+        "type": "origins:tooltip",
+        "item_condition": {
+            "type": "origins:ingredient",
+            "ingredient": {
+                "item": "minecraft:heart_of_the_sea"
+            }
+        },
+        "texts": [
+			{
+				"text": "Using this item will permanently",
+				"color": "gray"
+			},
+			{
+				"translate": "%1$s %2$s",
+				"with": [
+					{
+						"text": "increase your",
+						"color": "gray"
+					},
+					{
+						"text": "Magic Energy!",
+						"color": "green"
+					}
+				]
+			}
+		],
+        "condition": {
+            "type": "origins:nbt",
+            "nbt": "{Tags:[\"fusedHeart\"]}",
+            "inverted": true
+        }
+    },
+    "particles": {
+		"type": "origins:action_over_time",
+		"entity_action": {
+			"type": "origins:and",
+			"actions": [
+				{
+					"type": "origins:execute_command",
+					"command": "execute at @s anchored eyes rotated ~ 0 positioned ~ ~0.5 ~ run particle minecraft:dust_color_transition 0.75 1.0 0.5 1.0 0.0 1.0 0.0 ^ ^ ^-0.5 0.23 0.5 0.23 0.0001 4 normal @a"
+				},
+				{
+					"type": "origins:execute_command",
+					"command": "execute at @s anchored eyes rotated ~ 0 positioned ~ ~0.5 ~ run particle minecraft:composter ^ ^ ^-0.5 0.23 0.5 0.23 0.0001 3 force @a"
+				}
+			]
+		},
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:nbt",
+                    "nbt": "{Tags:[\"fusedBlock\"]}"
+                },
+                {
+                    "type": "origins:nbt",
+                    "nbt": "{Tags:[\"fusedHeart\"]}"
+                },
+                {
+                    "type": "origins:nbt",
+                    "nbt": "{Tags:[\"fusedTear\"]}"
+                },
+                {
+                    "type": "origins:invisible",
+                    "inverted": true
+                },
+                {
+                    "type": "origins:power",
+                    "power": "fused:vsoul_active",
+                    "inverted": true
+                }
+            ]
+        },
+		"interval": 3
+	}
+}

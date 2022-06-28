@@ -1,0 +1,28 @@
+{
+    "display": {
+        "title": {
+            "text": "Warms the Soul",
+            "color": "light_purple"
+        },
+        "description": {
+            "text": "Bone-melting lava, you say? What if I don't have any bones?",
+            "color": "yellow"
+        },
+        "icon": {
+            "item": "minecraft:lava_bucket"
+        },
+        "frame": "challenge",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "no": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "rewards": {
+        "experience": 75
+    },
+    "parent": "fused:ef_dri"
+}

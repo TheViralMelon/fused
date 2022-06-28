@@ -1,0 +1,23 @@
+{
+    "display": {
+        "title": {
+            "text": "Avatar of Ulmo"
+        },
+        "description": {
+            "text": "Upgrade your Magic Energy by consuming a Heart of the Sea."
+        },
+        "icon": {
+            "item": "minecraft:heart_of_the_sea"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "no": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "parent": "fused:upgrade_lapis"
+}

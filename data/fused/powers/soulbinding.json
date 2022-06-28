@@ -1,0 +1,1509 @@
+{
+    "name": "§a§o§nSoulbinding",
+	"description": "You can apply catalysts to items with maximum enchantment levels to increase them further and apply §eMending§r, at the cost of 15 experience levels, up to twice per item (once per enchantment). These items will be soulbound to you, preventing other players from using them.",
+	"badges": [
+		{
+			"sprite": "minecraft:textures/item/command_block_minecart.png",
+			"text": "§d/trigger catalysts§r will show information about catalysts and soulbinding."
+		},
+		{
+			"sprite": "minecraft:textures/item/barrier.png",
+			"text": "Players that equip soulbound items in their mainhand, offhand, or armor slots will receive glowing and blindness, and will be unable to attack, use items, use elytra, or break blocks. Items soulbound to you will have the same effect on you if you attempt to use them as an origin other than Fused."
+		},
+		{
+			"sprite": "minecraft:textures/item/enchanted_book.png",
+			"text": "§eProtection§r, §eFire Protection§r, §eBlast Protection§r, §eProjectile Protection§r, and §eThorns§r -- as well as any modded enchantments -- can't be increased using soulbinding."
+		}
+	],
+    "type": "origins:multiple",
+    "fail_cooldown": {
+        "type": "origins:cooldown",
+        "cooldown": 40,
+        "hud_render": {
+            "should_render": false
+        }
+    },
+    "max_tooltip": {
+        "type": "origins:tooltip",
+        "item_condition": {
+            "type": "origins:nbt",
+            "nbt": "{fusedCatalystCount:2}"
+        },
+        "texts": [
+            {
+                "text": "Catalysts can no longer",
+                "color": "red",
+                "italic": "false"
+            },
+            {
+                "text": "be applied to this item!",
+                "color": "red",
+                "italic": "false"
+            }
+        ]
+    },
+    "soulbind_chorus_flower": {
+        "type": "origins:item_on_item",
+        "using_item_condition": {
+            "type": "origins:ingredient",
+            "ingredient": {
+                "item": "minecraft:chorus_flower"
+            }
+        },
+        "condition": {
+            "type": "origins:xp_levels",
+            "comparison": ">=",
+            "compare_to": 15
+        },
+        "on_item_condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:enchantment",
+                    "enchantment": "minecraft:unbreaking",
+                    "comparison": "==",
+                    "compare_to": 3
+                },
+                {
+                    "type": "origins:or",
+                    "conditions": [
+                        {
+                            "type": "origins:and",
+                            "conditions": [
+                                {
+                                    "type": "origins:nbt",
+                                    "nbt": "{fusedCatalystCount:1}",
+                                    "inverted": true
+                                },
+                                {
+                                    "type": "origins:nbt",
+                                    "nbt": "{fusedCatalystCount:2}",
+                                    "inverted": true
+                                }
+                            ]
+                        },
+                        {
+                            "type": "origins:nbt",
+                            "nbt": "{fusedCatalystCount:1}"
+                        }
+                    ]
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:execute_command",
+            "command": "function fused:soulbind"
+        },
+        "on_item_action": {
+            "type": "origins:delay",
+            "ticks": 1,
+            "action": {
+                "type": "origins:and",
+                "actions": [
+                    {
+                        "type": "origins:modify",
+                        "modifier": "fused:soulbind_unbreaking"
+                    },
+                    {
+                        "type": "origins:if_else",
+                        "condition": {
+                            "type": "origins:nbt",
+                            "nbt": "{Enchantments:[{id:\"minecraft:mending\"}]}",
+                            "inverted": true
+                        },
+                        "if_action": {
+                            "type": "origins:modify",
+                            "modifier": "fused:mending"
+                        }
+                    },
+                    {
+                        "type": "origins:if_else_list",
+                        "actions": [
+                            {
+                                "condition": {
+                                    "type": "origins:and",
+                                    "conditions": [
+                                        {
+                                            "type": "origins:nbt",
+                                            "nbt": "{fusedCatalystCount:1}",
+                                            "inverted": true
+                                        },
+                                        {
+                                            "type": "origins:nbt",
+                                            "nbt": "{fusedCatalystCount:2}",
+                                            "inverted": true
+                                        }
+                                    ]
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:catalyst_0"
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:nbt",
+                                    "nbt": "{fusedCatalystCount:1}"
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:catalyst_1"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "using_item_action": {
+            "type": "origins:consume",
+            "amount": 1
+        }
+    },
+    "soulbind_blackstone": {
+        "type": "origins:item_on_item",
+        "using_item_condition": {
+            "type": "origins:ingredient",
+            "ingredient": {
+                "item": "minecraft:gilded_blackstone"
+            }
+        },
+        "condition": {
+            "type": "origins:xp_levels",
+            "comparison": ">=",
+            "compare_to": 15
+        },
+        "on_item_condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:or",
+                    "conditions": [
+                        {
+                            "type": "origins:enchantment",
+                            "enchantment": "minecraft:sharpness",
+                            "comparison": "==",
+                            "compare_to": 5
+                        },
+                        {
+                            "type": "origins:enchantment",
+                            "enchantment": "minecraft:smite",
+                            "comparison": "==",
+                            "compare_to": 5
+                        },
+                        {
+                            "type": "origins:enchantment",
+                            "enchantment": "minecraft:impaling",
+                            "comparison": "==",
+                            "compare_to": 5
+                        },
+                        {
+                            "type": "origins:enchantment",
+                            "enchantment": "minecraft:depth_strider",
+                            "comparison": "==",
+                            "compare_to": 3
+                        },
+                        {
+                            "type": "origins:enchantment",
+                            "enchantment": "minecraft:frost_walker",
+                            "comparison": "==",
+                            "compare_to": 2
+                        }
+                    ]
+                },
+                {
+                    "type": "origins:or",
+                    "conditions": [
+                        {
+                            "type": "origins:and",
+                            "conditions": [
+                                {
+                                    "type": "origins:nbt",
+                                    "nbt": "{fusedCatalystCount:1}",
+                                    "inverted": true
+                                },
+                                {
+                                    "type": "origins:nbt",
+                                    "nbt": "{fusedCatalystCount:2}",
+                                    "inverted": true
+                                }
+                            ]
+                        },
+                        {
+                            "type": "origins:nbt",
+                            "nbt": "{fusedCatalystCount:1}"
+                        }
+                    ]
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:execute_command",
+            "command": "function fused:soulbind"
+        },
+        "on_item_action": {
+            "type": "origins:delay",
+            "ticks": 1,
+            "action": {
+                "type": "origins:and",
+                "actions": [
+                    {
+                        "type": "origins:if_else_list",
+                        "actions": [
+                            {
+                                "condition": {
+                                    "type": "origins:enchantment",
+                                    "enchantment": "minecraft:sharpness",
+                                    "comparison": "==",
+                                    "compare_to": 5
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:soulbind_sharpness"
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:enchantment",
+                                    "enchantment": "minecraft:smite",
+                                    "comparison": "==",
+                                    "compare_to": 5
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:soulbind_smite"
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:enchantment",
+                                    "enchantment": "minecraft:impaling",
+                                    "comparison": "==",
+                                    "compare_to": 5
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:soulbind_impaling"
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:enchantment",
+                                    "enchantment": "minecraft:depth_strider",
+                                    "comparison": "==",
+                                    "compare_to": 3
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:soulbind_depth_strider"
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:enchantment",
+                                    "enchantment": "minecraft:frost_walker",
+                                    "comparison": "==",
+                                    "compare_to": 2
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:soulbind_frost_walker"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "origins:if_else",
+                        "condition": {
+                            "type": "origins:nbt",
+                            "nbt": "{Enchantments:[{id:\"minecraft:mending\"}]}",
+                            "inverted": true
+                        },
+                        "if_action": {
+                            "type": "origins:modify",
+                            "modifier": "fused:mending"
+                        }
+                    },
+                    {
+                        "type": "origins:if_else_list",
+                        "actions": [
+                            {
+                                "condition": {
+                                    "type": "origins:and",
+                                    "conditions": [
+                                        {
+                                            "type": "origins:nbt",
+                                            "nbt": "{fusedCatalystCount:1}",
+                                            "inverted": true
+                                        },
+                                        {
+                                            "type": "origins:nbt",
+                                            "nbt": "{fusedCatalystCount:2}",
+                                            "inverted": true
+                                        }
+                                    ]
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:catalyst_0"
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:nbt",
+                                    "nbt": "{fusedCatalystCount:1}"
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:catalyst_1"
+                                }
+                            }
+                        ]
+                    }    
+                ]
+            }
+        },
+        "using_item_action": {
+            "type": "origins:consume",
+            "amount": 1
+        }
+    },
+    "soulbind_scute": {
+        "type": "origins:item_on_item",
+        "using_item_condition": {
+            "type": "origins:ingredient",
+            "ingredient": {
+                "item": "minecraft:scute"
+            }
+        },
+        "condition": {
+            "type": "origins:xp_levels",
+            "comparison": ">=",
+            "compare_to": 15
+        },
+        "on_item_condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:or",
+                    "conditions": [
+                        {
+                            "type": "origins:enchantment",
+                            "enchantment": "minecraft:power",
+                            "comparison": "==",
+                            "compare_to": 5
+                        },
+                        {
+                            "type": "origins:enchantment",
+                            "enchantment": "minecraft:looting",
+                            "comparison": "==",
+                            "compare_to": 3
+                        },
+                        {
+                            "type": "origins:enchantment",
+                            "enchantment": "minecraft:respiration",
+                            "comparison": "==",
+                            "compare_to": 3
+                        },
+                        {
+                            "type": "origins:enchantment",
+                            "enchantment": "minecraft:swift_sneak",
+                            "comparison": "==",
+                            "compare_to": 3
+                        }
+                    ]
+                },
+                {
+                    "type": "origins:or",
+                    "conditions": [
+                        {
+                            "type": "origins:and",
+                            "conditions": [
+                                {
+                                    "type": "origins:nbt",
+                                    "nbt": "{fusedCatalystCount:1}",
+                                    "inverted": true
+                                },
+                                {
+                                    "type": "origins:nbt",
+                                    "nbt": "{fusedCatalystCount:2}",
+                                    "inverted": true
+                                }
+                            ]
+                        },
+                        {
+                            "type": "origins:nbt",
+                            "nbt": "{fusedCatalystCount:1}"
+                        }
+                    ]
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:execute_command",
+            "command": "function fused:soulbind"
+        },
+        "on_item_action": {
+            "type": "origins:delay",
+            "ticks": 1,
+            "action": {
+                "type": "origins:and",
+                "actions": [
+                    {
+                        "type": "origins:if_else_list",
+                        "actions": [
+                            {
+                                "condition": {
+                                    "type": "origins:enchantment",
+                                    "enchantment": "minecraft:power",
+                                    "comparison": "==",
+                                    "compare_to": 5
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:soulbind_power"
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:enchantment",
+                                    "enchantment": "minecraft:looting",
+                                    "comparison": "==",
+                                    "compare_to": 3
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:soulbind_looting"
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:enchantment",
+                                    "enchantment": "minecraft:respiration",
+                                    "comparison": "==",
+                                    "compare_to": 3
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:soulbind_respiration"
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:enchantment",
+                                    "enchantment": "minecraft:swift_sneak",
+                                    "comparison": "==",
+                                    "compare_to": 3
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:soulbind_swiftsneak"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "origins:if_else",
+                        "condition": {
+                            "type": "origins:nbt",
+                            "nbt": "{Enchantments:[{id:\"minecraft:mending\"}]}",
+                            "inverted": true
+                        },
+                        "if_action": {
+                            "type": "origins:modify",
+                            "modifier": "fused:mending"
+                        }
+                    },
+                    {
+                        "type": "origins:if_else_list",
+                        "actions": [
+                            {
+                                "condition": {
+                                    "type": "origins:and",
+                                    "conditions": [
+                                        {
+                                            "type": "origins:nbt",
+                                            "nbt": "{fusedCatalystCount:1}",
+                                            "inverted": true
+                                        },
+                                        {
+                                            "type": "origins:nbt",
+                                            "nbt": "{fusedCatalystCount:2}",
+                                            "inverted": true
+                                        }
+                                    ]
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:catalyst_0"
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:nbt",
+                                    "nbt": "{fusedCatalystCount:1}"
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:catalyst_1"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "using_item_action": {
+            "type": "origins:consume",
+            "amount": 1
+        }
+    },
+    "soulbind_foot": {
+        "type": "origins:item_on_item",
+        "using_item_condition": {
+            "type": "origins:ingredient",
+            "ingredient": {
+                "item": "minecraft:rabbit_foot"
+            }
+        },
+        "condition": {
+            "type": "origins:xp_levels",
+            "comparison": ">=",
+            "compare_to": 15
+        },
+        "on_item_condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:or",
+                    "conditions": [
+                        {
+                            "type": "origins:enchantment",
+                            "enchantment": "minecraft:efficiency",
+                            "comparison": "==",
+                            "compare_to": 5
+                        },
+                        {
+                            "type": "origins:enchantment",
+                            "enchantment": "minecraft:punch",
+                            "comparison": "==",
+                            "compare_to": 2
+                        },
+                        {
+                            "type": "origins:enchantment",
+                            "enchantment": "minecraft:sweeping",
+                            "comparison": "==",
+                            "compare_to": 3
+                        }
+                    ]
+                },
+                {
+                    "type": "origins:or",
+                    "conditions": [
+                        {
+                            "type": "origins:and",
+                            "conditions": [
+                                {
+                                    "type": "origins:nbt",
+                                    "nbt": "{fusedCatalystCount:1}",
+                                    "inverted": true
+                                },
+                                {
+                                    "type": "origins:nbt",
+                                    "nbt": "{fusedCatalystCount:2}",
+                                    "inverted": true
+                                }
+                            ]
+                        },
+                        {
+                            "type": "origins:nbt",
+                            "nbt": "{fusedCatalystCount:1}"
+                        }
+                    ]
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:execute_command",
+            "command": "function fused:soulbind"
+        },
+        "on_item_action": {
+            "type": "origins:delay",
+            "ticks": 1,
+            "action": {
+                "type": "origins:and",
+                "actions": [
+                    {
+                        "type": "origins:if_else_list",
+                        "actions": [
+                            {
+                                "condition": {
+                                    "type": "origins:enchantment",
+                                    "enchantment": "minecraft:efficiency",
+                                    "comparison": "==",
+                                    "compare_to": 5
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:soulbind_efficiency"
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:enchantment",
+                                    "enchantment": "minecraft:punch",
+                                    "comparison": "==",
+                                    "compare_to": 2
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:soulbind_punch"
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:enchantment",
+                                    "enchantment": "minecraft:sweeping",
+                                    "comparison": "==",
+                                    "compare_to": 3
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:soulbind_sweeping"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "origins:if_else",
+                        "condition": {
+                            "type": "origins:nbt",
+                            "nbt": "{Enchantments:[{id:\"minecraft:mending\"}]}",
+                            "inverted": true
+                        },
+                        "if_action": {
+                            "type": "origins:modify",
+                            "modifier": "fused:mending"
+                        }
+                    },
+                    {
+                        "type": "origins:if_else_list",
+                        "actions": [
+                            {
+                                "condition": {
+                                    "type": "origins:and",
+                                    "conditions": [
+                                        {
+                                            "type": "origins:nbt",
+                                            "nbt": "{fusedCatalystCount:1}",
+                                            "inverted": true
+                                        },
+                                        {
+                                            "type": "origins:nbt",
+                                            "nbt": "{fusedCatalystCount:2}",
+                                            "inverted": true
+                                        }
+                                    ]
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:catalyst_0"
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:nbt",
+                                    "nbt": "{fusedCatalystCount:1}"
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:catalyst_1"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "using_item_action": {
+            "type": "origins:consume",
+            "amount": 1
+        }
+    },
+    "soulbind_honey": {
+        "type": "origins:item_on_item",
+        "using_item_condition": {
+            "type": "origins:ingredient",
+            "ingredient": {
+                "item": "minecraft:honey_block"
+            }
+        },
+        "condition": {
+            "type": "origins:xp_levels",
+            "comparison": ">=",
+            "compare_to": 15
+        },
+        "on_item_condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:or",
+                    "conditions": [
+                        {
+                            "type": "origins:enchantment",
+                            "enchantment": "minecraft:piercing",
+                            "comparison": "==",
+                            "compare_to": 4
+                        },
+                        {
+                            "type": "origins:enchantment",
+                            "enchantment": "minecraft:fortune",
+                            "comparison": "==",
+                            "compare_to": 3
+                        },
+                        {
+                            "type": "origins:enchantment",
+                            "enchantment": "minecraft:knockback",
+                            "comparison": "==",
+                            "compare_to": 2
+                        },
+                        {
+                            "type": "origins:enchantment",
+                            "enchantment": "minecraft:feather_falling",
+                            "comparison": "==",
+                            "compare_to": 4
+                        }
+                    ]
+                },
+                {
+                    "type": "origins:or",
+                    "conditions": [
+                        {
+                            "type": "origins:and",
+                            "conditions": [
+                                {
+                                    "type": "origins:nbt",
+                                    "nbt": "{fusedCatalystCount:1}",
+                                    "inverted": true
+                                },
+                                {
+                                    "type": "origins:nbt",
+                                    "nbt": "{fusedCatalystCount:2}",
+                                    "inverted": true
+                                }
+                            ]
+                        },
+                        {
+                            "type": "origins:nbt",
+                            "nbt": "{fusedCatalystCount:1}"
+                        }
+                    ]
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:execute_command",
+            "command": "function fused:soulbind"
+        },
+        "on_item_action": {
+            "type": "origins:delay",
+            "ticks": 1,
+            "action": {
+                "type": "origins:and",
+                "actions": [
+                    {
+                        "type": "origins:if_else_list",
+                        "actions": [
+                            {
+                                "condition": {
+                                    "type": "origins:enchantment",
+                                    "enchantment": "minecraft:piercing",
+                                    "comparison": "==",
+                                    "compare_to": 4
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:soulbind_piercing"
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:enchantment",
+                                    "enchantment": "minecraft:fortune",
+                                    "comparison": "==",
+                                    "compare_to": 3
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:soulbind_fortune"
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:enchantment",
+                                    "enchantment": "minecraft:knockback",
+                                    "comparison": "==",
+                                    "compare_to": 2
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:soulbind_knockback"
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:enchantment",
+                                    "enchantment": "minecraft:feather_falling",
+                                    "comparison": "==",
+                                    "compare_to": 4
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:soulbind_featherfall"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "origins:if_else",
+                        "condition": {
+                            "type": "origins:nbt",
+                            "nbt": "{Enchantments:[{id:\"minecraft:mending\"}]}",
+                            "inverted": true
+                        },
+                        "if_action": {
+                            "type": "origins:modify",
+                            "modifier": "fused:mending"
+                        }
+                    },
+                    {
+                        "type": "origins:if_else_list",
+                        "actions": [
+                            {
+                                "condition": {
+                                    "type": "origins:and",
+                                    "conditions": [
+                                        {
+                                            "type": "origins:nbt",
+                                            "nbt": "{fusedCatalystCount:1}",
+                                            "inverted": true
+                                        },
+                                        {
+                                            "type": "origins:nbt",
+                                            "nbt": "{fusedCatalystCount:2}",
+                                            "inverted": true
+                                        }
+                                    ]
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:catalyst_0"
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:nbt",
+                                    "nbt": "{fusedCatalystCount:1}"
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:catalyst_1"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "using_item_action": {
+            "type": "origins:consume",
+            "amount": 1
+        }
+    },
+    "soulbind_breath": {
+        "type": "origins:item_on_item",
+        "using_item_condition": {
+            "type": "origins:ingredient",
+            "ingredient": {
+                "item": "minecraft:dragon_breath"
+            }
+        },
+        "condition": {
+            "type": "origins:xp_levels",
+            "comparison": ">=",
+            "compare_to": 15
+        },
+        "on_item_condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:or",
+                    "conditions": [
+                        {
+                            "type": "origins:enchantment",
+                            "enchantment": "minecraft:loyalty",
+                            "comparison": "==",
+                            "compare_to": 3
+                        },
+                        {
+                            "type": "origins:enchantment",
+                            "enchantment": "minecraft:riptide",
+                            "comparison": "==",
+                            "compare_to": 3
+                        },
+                        {
+                            "type": "origins:enchantment",
+                            "enchantment": "minecraft:quick_charge",
+                            "comparison": "==",
+                            "compare_to": 3
+                        },
+                        {
+                            "type": "origins:enchantment",
+                            "enchantment": "minecraft:fire_aspect",
+                            "comparison": "==",
+                            "compare_to": 2
+                        },
+                        {
+                            "type": "origins:enchantment",
+                            "enchantment": "minecraft:soul_speed",
+                            "comparison": "==",
+                            "compare_to": 3
+                        }
+                    ]
+                },
+                {
+                    "type": "origins:or",
+                    "conditions": [
+                        {
+                            "type": "origins:and",
+                            "conditions": [
+                                {
+                                    "type": "origins:nbt",
+                                    "nbt": "{fusedCatalystCount:1}",
+                                    "inverted": true
+                                },
+                                {
+                                    "type": "origins:nbt",
+                                    "nbt": "{fusedCatalystCount:2}",
+                                    "inverted": true
+                                }
+                            ]
+                        },
+                        {
+                            "type": "origins:nbt",
+                            "nbt": "{fusedCatalystCount:1}"
+                        }
+                    ]
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:execute_command",
+            "command": "function fused:soulbind"
+        },
+        "on_item_action": {
+            "type": "origins:delay",
+            "ticks": 1,
+            "action": {
+                "type": "origins:and",
+                "actions": [
+                    {
+                        "type": "origins:if_else_list",
+                        "actions": [
+                            {
+                                "condition": {
+                                    "type": "origins:enchantment",
+                                    "enchantment": "minecraft:riptide",
+                                    "comparison": "==",
+                                    "compare_to": 3
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:soulbind_riptide"
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:enchantment",
+                                    "enchantment": "minecraft:loyalty",
+                                    "comparison": "==",
+                                    "compare_to": 3
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:soulbind_loyalty"
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:enchantment",
+                                    "enchantment": "minecraft:quick_charge",
+                                    "comparison": "==",
+                                    "compare_to": 3
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:soulbind_quick_charge"
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:enchantment",
+                                    "enchantment": "minecraft:fire_aspect",
+                                    "comparison": "==",
+                                    "compare_to": 2
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:soulbind_fire_aspect"
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:enchantment",
+                                    "enchantment": "minecraft:soul_speed",
+                                    "comparison": "==",
+                                    "compare_to": 3
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:soulbind_soulspeed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "origins:if_else",
+                        "condition": {
+                            "type": "origins:nbt",
+                            "nbt": "{Enchantments:[{id:\"minecraft:mending\"}]}",
+                            "inverted": true
+                        },
+                        "if_action": {
+                            "type": "origins:modify",
+                            "modifier": "fused:mending"
+                        }
+                    },
+                    {
+                        "type": "origins:if_else_list",
+                        "actions": [
+                            {
+                                "condition": {
+                                    "type": "origins:and",
+                                    "conditions": [
+                                        {
+                                            "type": "origins:nbt",
+                                            "nbt": "{fusedCatalystCount:1}",
+                                            "inverted": true
+                                        },
+                                        {
+                                            "type": "origins:nbt",
+                                            "nbt": "{fusedCatalystCount:2}",
+                                            "inverted": true
+                                        }
+                                    ]
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:catalyst_0"
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:nbt",
+                                    "nbt": "{fusedCatalystCount:1}"
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:catalyst_1"
+                                }
+                            }
+                        ]
+                    }
+                ]    
+            }
+        },
+        "using_item_action": {
+            "type": "origins:consume",
+            "amount": 1
+        }
+    },
+    "now_they_have_a_use": {
+        "type": "origins:item_on_item",
+        "using_item_condition": {
+            "type": "origins:ingredient",
+            "ingredient": {
+                "item": "minecraft:poisonous_potato"
+            }
+        },
+        "condition": {
+            "type": "origins:xp_levels",
+            "comparison": ">=",
+            "compare_to": 15
+        },
+        "on_item_condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:enchantment",
+                    "enchantment": "minecraft:bane_of_arthropods",
+                    "comparison": "==",
+                    "compare_to": 5
+                },
+                {
+                    "type": "origins:or",
+                    "conditions": [
+                        {
+                            "type": "origins:and",
+                            "conditions": [
+                                {
+                                    "type": "origins:nbt",
+                                    "nbt": "{fusedCatalystCount:1}",
+                                    "inverted": true
+                                },
+                                {
+                                    "type": "origins:nbt",
+                                    "nbt": "{fusedCatalystCount:2}",
+                                    "inverted": true
+                                }
+                            ]
+                        },
+                        {
+                            "type": "origins:nbt",
+                            "nbt": "{fusedCatalystCount:1}"
+                        }
+                    ]
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:execute_command",
+                    "command": "function fused:soulbind"
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "advancement grant @s only fused:soulbind_funny"
+                }
+            ]
+        },
+        "on_item_action": {
+            "type": "origins:delay",
+            "ticks": 1,
+            "action": {
+                "type": "origins:and",
+                "actions": [
+                    {
+                        "type": "origins:modify",
+                        "modifier": "fused:soulbind_useless"
+                    },
+                    {
+                        "type": "origins:if_else",
+                        "condition": {
+                            "type": "origins:nbt",
+                            "nbt": "{Enchantments:[{id:\"minecraft:mending\"}]}",
+                            "inverted": true
+                        },
+                        "if_action": {
+                            "type": "origins:modify",
+                            "modifier": "fused:mending"
+                        }
+                    },
+                    {
+                        "type": "origins:if_else_list",
+                        "actions": [
+                            {
+                                "condition": {
+                                    "type": "origins:and",
+                                    "conditions": [
+                                        {
+                                            "type": "origins:nbt",
+                                            "nbt": "{fusedCatalystCount:1}",
+                                            "inverted": true
+                                        },
+                                        {
+                                            "type": "origins:nbt",
+                                            "nbt": "{fusedCatalystCount:2}",
+                                            "inverted": true
+                                        }
+                                    ]
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:catalyst_0"
+                                }
+                            },
+                            {
+                                "condition": {
+                                    "type": "origins:nbt",
+                                    "nbt": "{fusedCatalystCount:1}"
+                                },
+                                "action": {
+                                    "type": "origins:modify",
+                                    "modifier": "fused:catalyst_1"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "using_item_action": {
+            "type": "origins:consume",
+            "amount": 1
+        }
+    },
+    "tooltip_chrous": {
+        "type": "origins:tooltip",
+        "item_condition": {
+            "type": "origins:ingredient",
+            "ingredient": {
+                "item": "minecraft:chorus_flower"
+            }
+        },
+        "texts": [
+            {
+                "text": "This item is a §aSoulbinding Catalyst§r;",
+                "color": "white"
+            },
+            {
+                "text": "it can be used on the following:",
+                "color": "white"
+            },
+            {
+                "text": "Unbreaking",
+                "color": "yellow"
+            },
+            {
+                "text": "§d/trigger catalysts§r for more details.",
+                "color": "gray"
+            }
+        ]
+    },
+    "tooltip_blackstone": {
+        "type": "origins:tooltip",
+        "item_condition": {
+            "type": "origins:ingredient",
+            "ingredient": {
+                "item": "minecraft:gilded_blackstone"
+            }
+        },
+        "texts": [
+            {
+                "text": "This item is a §aSoulbinding Catalyst§r;",
+                "color": "white"
+            },
+            {
+                "text": "it can be used on the following:",
+                "color": "white"
+            },
+            {
+                "text": "Sharpness, Smite, Impaling, Depth",
+                "color": "yellow"
+            },
+            {
+                "text": "Strider, Frost Walker",
+                "color": "yellow"
+            },
+            {
+                "text": "§d/trigger catalysts§r for more details.",
+                "color": "gray"
+            }
+        ]
+    },
+    "tooltip_scute": {
+        "type": "origins:tooltip",
+        "item_condition": {
+            "type": "origins:ingredient",
+            "ingredient": {
+                "item": "minecraft:scute"
+            }
+        },
+        "texts": [
+            {
+                "text": "This item is a §aSoulbinding Catalyst§r;",
+                "color": "white"
+            },
+            {
+                "text": "it can be used on the following:",
+                "color": "white"
+            },
+            {
+                "text": "Power, Looting, Swift Sneak, Respiration",
+                "color": "yellow"
+            },
+            {
+                "text": "§d/trigger catalysts§r for more details.",
+                "color": "gray"
+            }
+        ]
+    },
+    "tooltip_foot": {
+        "type": "origins:tooltip",
+        "item_condition": {
+            "type": "origins:ingredient",
+            "ingredient": {
+                "item": "minecraft:rabbit_foot"
+            }
+        },
+        "texts": [
+            {
+                "text": "This item is a §aSoulbinding Catalyst§r;",
+                "color": "white"
+            },
+            {
+                "text": "it can be used on the following:",
+                "color": "white"
+            },
+            {
+                "text": "Efficiency, Punch, Sweeping Edge",
+                "color": "yellow"
+            },
+            {
+                "text": "§d/trigger catalysts§r for more details.",
+                "color": "gray"
+            }
+        ]
+    },
+    "tooltip_honey": {
+        "type": "origins:tooltip",
+        "item_condition": {
+            "type": "origins:ingredient",
+            "ingredient": {
+                "item": "minecraft:honey_block"
+            }
+        },
+        "texts": [
+            {
+                "text": "This item is a §aSoulbinding Catalyst§r;",
+                "color": "white"
+            },
+            {
+                "text": "it can be used on the following:",
+                "color": "white"
+            },
+            {
+                "text": "Piercing, Fortune, Knockback,",
+                "color": "yellow"
+            },
+            {
+                "text": "Feather Falling",
+                "color": "yellow"
+            },
+            {
+                "text": "§d/trigger catalysts§r for more details.",
+                "color": "gray"
+            }
+        ]
+    },
+    "tooltip_breath": {
+        "type": "origins:tooltip",
+        "item_condition": {
+            "type": "origins:ingredient",
+            "ingredient": {
+                "item": "minecraft:dragon_breath"
+            }
+        },
+        "texts": [
+            {
+                "text": "This item is a §aSoulbinding Catalyst§r;",
+                "color": "white"
+            },
+            {
+                "text": "it can be used on the following:",
+                "color": "white"
+            },
+            {
+                "text": "Riptide, Loyalty, Quick Charge,",
+                "color": "yellow"
+            },
+            {
+                "text": "Fire Aspect, Soul Speed",
+                "color": "yellow"
+            },
+            {
+                "text": "§d/trigger catalysts§r for more details.",
+                "color": "gray"
+            }
+        ]
+    },
+    "tooltip_useless": {
+        "type": "origins:tooltip",
+        "item_condition": {
+            "type": "origins:ingredient",
+            "ingredient": {
+                "item": "minecraft:poisonous_potato"
+            }
+        },
+        "texts": [
+            {
+                "text": "This item is a §aSoulbinding Catalyst§r;",
+                "color": "white"
+            },
+            {
+                "text": "it can be used on the following:",
+                "color": "white"
+            },
+            {
+                "text": "Bane of Arthropods",
+                "color": "yellow"
+            },
+            {
+                "text": "§d/trigger catalysts§r for more details.",
+                "color": "gray"
+            }
+        ]
+    },
+    "low_xp": {
+        "type": "origins:item_on_item",
+        "using_item_condition": {
+            "type": "origins:ingredient",
+            "ingredient": {
+                "tag": "fused:catalysts"
+            }
+        },
+        "condition": {
+            "type": "origins:xp_levels",
+            "comparison": "<",
+            "compare_to": 15
+        },
+        "on_item_condition": {
+            "type": "origins:nbt",
+            "nbt": "{Enchantments:[{}]}"
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:if_else",
+                    "condition": {
+                        "type": "origins:resource",
+                        "resource": "fused:soulbinding_fail_cooldown",
+                        "comparison": "==",
+                        "compare_to": 0
+                    },
+                    "if_action": {
+                        "type": "origins:and",
+                        "actions": [
+                            {
+                                "type": "origins:execute_command",
+                                "command": "tellraw @s {\"text\":\"You need at least 15 experience levels to Soulbind items!\",\"color\":\"red\"}"
+                            },
+                            {
+                                "type": "origins:execute_command",
+                                "command": "playsound minecraft:entity.blaze.hurt master @s ~ ~ ~ 1 1.5"
+                            }
+                        ]
+                    }
+                    
+                },
+                {
+                    "type": "origins:trigger_cooldown",
+                    "power": "fused:soulbinding_fail_cooldown"
+                }
+            ]
+        }
+    }
+}

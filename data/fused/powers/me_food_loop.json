@@ -1,0 +1,50 @@
+{
+    "type": "origins:action_on_callback",
+    "entity_action_gained": {
+        "type": "origins:and",
+        "actions": [
+            {
+                "type": "origins:if_else",
+                "condition": {
+                    "type": "origins:scoreboard",
+                    "objective": "fusedMana",
+                    "comparison": ">=",
+                    "compare_to": 1
+                },
+                "if_action": {
+                    "type": "origins:and",
+                    "actions": [
+                        {
+                            "type": "origins:feed",
+                            "food": 1,
+                            "saturation": 20
+                        },
+                        {
+                            "type": "origins:execute_command",
+                            "command": "scoreboard players remove @s fusedMana 1"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "origins:revoke_power",
+                "power": "fused:me_food_loop",
+                "source": "fused:magic_energy"
+            }
+        ]
+    },
+    "entity_action_lost": {
+        "type": "origins:if_else",
+        "condition": {
+            "type": "origins:scoreboard",
+            "objective": "fusedMana",
+            "comparison": ">=",
+            "compare_to": 1
+        },
+        "if_action": {
+            "type": "origins:grant_power",
+            "power": "fused:me_food_loop",
+            "source": "fused:magic_energy"
+        }
+    }
+}

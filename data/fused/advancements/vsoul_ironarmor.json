@@ -1,0 +1,23 @@
+{
+    "display": {
+        "title": {
+            "text": "GET IT OFF OF ME!"
+        },
+        "description": {
+            "text": "Looks like someone had the genius idea of wearing armor made out of the bane of their soul..."
+        },
+        "icon": {
+            "item": "minecraft:iron_chestplate"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "no": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "parent": "fused:vsoul_proc"
+}

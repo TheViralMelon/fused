@@ -1,0 +1,25 @@
+{
+    "display": {
+        "title": {
+            "text": "Breathable Material",
+            "color": "yellow"
+        },
+        "description": {
+            "text": "Equip a full set of chainmail armor, the armor rated highest by spirits for its impeccable ratio of defense to Magic Energy reduction.",
+            "color": "light_purple"
+        },
+        "icon": {
+            "item": "minecraft:chainmail_chestplate"
+        },
+        "frame": "goal",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "no": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "parent": "fused:me_20"
+}

@@ -1,0 +1,23 @@
+{
+	"powers": [
+		"fused:color",
+		"fused:callback",
+		"fused:undead",
+		"fused:magic_energy",
+		"fused:vulnerable_soul",
+		"fused:animated",
+		"fused:me_upgrades",
+		"fused:ethereal_form",
+		"fused:soul_edge",
+		"fused:transmutation",
+		"fused:soulbinding",
+		"fused:repossession",
+		"fused:advancements",
+		"fused:update_magic_energy"
+	],
+	"icon": "minecraft:experience_bottle",
+	"order": 4,
+	"impact": 3,
+	"name": "Fused",
+	"description": "Fused are undead husks possessed and animated by experience-hungry spirits. They have strengths of both spirit and flesh, but also their weaknesses.\n§eFused uses an aggressive glass-cannon playstyle, featuring a lot of extra progression, but also a lot of quality of life improvements that make the experience of playing the game more streamlined, as well as its own advancement tree.§r\n§n§2reated by TheViralMelon"
+}

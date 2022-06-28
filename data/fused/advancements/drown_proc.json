@@ -1,0 +1,23 @@
+{
+    "display": {
+        "title": {
+            "text": "A Mild Inconvenience"
+        },
+        "description": {
+            "text": "Blindness is annoying, but it's better than death."
+        },
+        "icon": {
+            "item": "minecraft:cod"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "no": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "parent": "fused:repossession_proc"
+}

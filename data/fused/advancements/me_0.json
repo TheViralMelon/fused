@@ -1,0 +1,28 @@
+{
+    "display": {
+        "title": {
+            "text": "Magic is for Losers",
+            "color": "light_purple"
+        },
+        "description": {
+            "text": "Reach 0 Magic Energy. Your spirit now regrets its choice of host body.",
+            "color": "yellow"
+        },
+        "icon": {
+            "item": "minecraft:ender_pearl"
+        },
+        "frame": "challenge",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "no": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "rewards": {
+        "experience": 300
+    },
+    "parent": "fused:me_chainmail"
+}

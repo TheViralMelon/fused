@@ -1,0 +1,14 @@
+[
+    {
+        "function": "minecraft:set_enchantments",
+        "enchantments": {
+            "minecraft:sharpness": 1
+        },
+        "add": true
+    },
+
+    {
+        "function": "minecraft:set_nbt",
+        "tag": "{fusedSoulboundSharpness:1b}"
+    }
+]

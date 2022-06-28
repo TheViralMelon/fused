@@ -1,0 +1,23 @@
+{
+    "display": {
+        "title": {
+            "text": "nullPointerException"
+        },
+        "description": {
+            "text": "Steal an armored target's defenses by dealing six damage or more in one hit. Don't ask about the name."
+        },
+        "icon": {
+            "item": "minecraft:leather_chestplate"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "no": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "parent": "fused:root"
+}

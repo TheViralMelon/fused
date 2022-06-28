@@ -1,0 +1,28 @@
+{
+    "display": {
+        "title": {
+            "text": "The Easy Way",
+            "color": "light_purple"
+        },
+        "description": {
+            "text": "Apply Mending to an item through Soulbinding and save yourself a lot of villager-sourced pain.",
+            "color": "yellow"
+        },
+        "icon": {
+            "item": "minecraft:lectern"
+        },
+        "frame": "challenge",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "no": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "rewards": {
+        "experience": 150
+    },
+    "parent": "fused:soulbind_double"
+}

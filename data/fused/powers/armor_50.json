@@ -1,0 +1,128 @@
+{
+    "type": "origins:multiple",
+    "hidden": true,
+    "power": {
+        "type": "origins:resource",
+        "min": 13,
+        "max": 22
+    },
+    "armor": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 1000
+    },
+    "toughness": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 1000
+    },
+    "callback": {
+        "type": "origins:action_on_callback",
+        "entity_action_added": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:execute_command",
+                    "command": "function fused:armor_50_init"
+                },
+                {
+                    "type": "origins:revoke_power",
+                    "power": "fused:armor_25",
+                    "source": "fused:hit_5"
+                }
+            ]
+        }
+    },
+    "modify_armor": {
+        "type": "origins:modify_attribute",
+        "attribute": "minecraft:generic.armor",
+        "modifier": {
+            "operation": "add_total_late",
+            "value": 0,
+            "resource": "fused:armor_50_armor"
+        }
+    },
+    "modify_toughness": {
+        "type": "origins:modify_attribute",
+        "attribute": "minecraft:generic.armor_toughness",
+        "modifier": {
+            "operation": "add_total_late",
+            "value": 0,
+            "resource": "fused:armor_50_toughness"
+        }
+    },
+    "overlay": {
+		"type": "origins:overlay",
+		"draw_mode": "nausea",
+		"draw_phase": "below_hud",
+		"red": 0.5,
+		"blue": 0.5,
+        "green": 0.5,
+		"strength": 0.6,
+		"texture": "minecraft:textures/misc/nausea.png",
+		"visible_in_third_person": true
+	},
+    "glow": {
+        "type": "origins:self_glow",
+        "bientity_condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:can_see"
+                },
+                {
+                    "type": "origins:distance",
+                    "comparison": "<=",
+                    "compare_to": 20
+                }
+            ]
+        },
+        "use_teams": false,
+        "red": 0.9,
+        "blue": 0.9,
+        "green": 1
+    },
+    "duration": {
+        "type": "origins:action_over_time",
+        "interval": 5,
+        "entity_action": {
+            "type": "origins:if_else_list",
+            "actions": [
+                {
+                    "condition": {
+                        "type": "origins:resource",
+                        "resource": "fused:armor_50_power",
+                        "comparison": ">=",
+                        "compare_to": 14
+                    },
+                    "action": {
+                        "type": "origins:change_resource",
+                        "resource": "fused:armor_50_power",
+                        "change": -1
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "origins:resource",
+                        "resource": "fused:armor_50_power",
+                        "comparison": "<=",
+                        "compare_to": 13
+                    },
+                    "action": {
+                        "type": "origins:revoke_power",
+                        "power": "fused:armor_50",
+                        "source": "fused:hit_10"
+                    }
+                }
+            ]   
+        }
+    },
+    "knockback": {
+        "type": "origins:attribute",
+        "modifier": {
+            "attribute": "minecraft:generic.knockback_resistance",
+            "operation": "addition",
+            "value": 1.0
+        }
+    }
+}

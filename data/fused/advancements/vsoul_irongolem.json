@@ -1,0 +1,28 @@
+{
+    "display": {
+        "title": {
+            "text": "Steel Soul",
+            "color": "light_purple"
+        },
+        "description": {
+            "text": "Surely you, a Fused, would avoid fighting a creature made entirely of iron...right?",
+            "color": "yellow"
+        },
+        "icon": {
+            "item": "minecraft:iron_block"
+        },
+        "frame": "challenge",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "no": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "rewards": {
+        "experience": 150
+    },
+    "parent": "fused:vsoul_ironarmor"
+}
